@@ -49,7 +49,7 @@ nav {
 	text-align: center;
 	font-size: 1.5em;
 	padding: 0.1em;
-	margin: 1.5em;
+	margin: 1em;
 }
 
 #desktopNavList a {
@@ -106,7 +106,7 @@ nav {
 
 
 /*Style for the main of website*/
-.main {
+main {
 	margin: auto;
 
 	flex-wrap: wrap;
@@ -135,11 +135,12 @@ h2 {
 iframe {border: none;}
 
 /*style for the products.html*/
-.side {
+aside {
+	display: block;
 	width: 10%;
 }
 
-.side a {
+#productTopLink a {
 	position: fixed;
 	top: 50%;
 	left: 0.5em;
@@ -150,17 +151,17 @@ iframe {border: none;}
     border-radius: 2em;
 }
 
-#productBookmarks {
+#productSections {
 	list-style-type: none;
 	display: flex;
 	flex-direction: row;
 }
 
-#productBookmarks li a{
+#productSections li a{
 	padding: 0.3em;
 }
 
-#productList {
+.productList {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-end;
@@ -227,10 +228,6 @@ td {
   margin-right: auto;
 }
 
-.emptyBasketDiv {
-	width: 10%;
-}
-
 .emptyBasketDiv button {
 	position: fixed;
 	top: 50%;
@@ -238,7 +235,7 @@ td {
 }
 
 /* Footer */
-.footer {
+footer {
 	padding: 2em;
 	text-align: center;
 	background: #34516C;
@@ -252,19 +249,25 @@ td {
 	color: ghostwhite;
 }
 
-.desktopNav {
-	display: block;
-}
-
 * {
 	box-sizing: border-box;
 }
 
 /*Media Quereies to be used on the header*/
-@media only screen and (max-width: 896px) {
+@media only screen and (max-width: 990px) {
+	.siteName {
+		margin: 1.7em;
+		font-size: 1.5em;
+	}
+
+	#desktopNavList li {
+		font-size: 1.3em;
+	}
+}
+
+@media only screen and (max-width: 870px) {
 	#mobileNav {
 		display: block;
-
 	}
 
 	#desktopNav {
