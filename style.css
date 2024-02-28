@@ -29,26 +29,72 @@ header {
 	color: ghostwhite;
 }
 
-/*for mobile navigation*/
-.mobileNav {
-	display: none;
-	position: relative;
-	list-style-type: none;
+nav {
 	margin-left: auto;
+	position: relative;
+}
+
+/*for desktop navigation*/
+#desktopNav{
+	display:block;
+}
+
+#desktopNavList {
+	display: flex;
+	flex-direction: row;
+	list-style-type: none;
+}
+
+#desktopNavList li {
+	text-align: center;
+	font-size: 1.5em;
+	padding: 0.1em;
+	margin: 1.5em;
+}
+
+#desktopNavList a {
+	text-decoration: none;
+	color: ghostwhite;
+}
+
+#desktopNavList a:hover {
+	color: gainsboro;
+}
+
+/*for mobile navigation*/
+#mobileNav{
+	display: none;
+	text-align: right;
+	background-color: #BE1622;
+}
+
+#mobileNav a.icon {
+	text-decoration: none;
+	color: ghostwhite;
+	display: block;
+	padding: 0.1em;
+	margin: 0.9em;
+	font-size: 1.5em;
 }
 
 #mobileNavList {
-	display: none;
+	display: none;	/* to hide links unless icon is pressed*/
+	flex-direction: column;
+	list-style-type: none;
+	background-color: #BE1622;
+}
+
+#mobileNavList li {
+	text-align: right;
 }
 
 #mobileNavList a {
 	text-decoration: none;
-	list-style-type: none;
 	color: ghostwhite;
-	background-color: #BE1622;
-	padding: 14px 16px;
-	font-size: 17px;
-	display: block;
+	display:block;
+	padding: 0.5em;
+	margin: 0.9em;
+	font-size: 1.5em;
 }
 
 #mobileNavList a:hover {
@@ -56,58 +102,8 @@ header {
 	color: black;
 }
 
-/* Style navigation menu links */
-.mobileNav a {
-	text-decoration: none;
-	list-style-type: none;
-	color: ghostwhite;
-	padding: 14px 16px;
-	font-size: 17px;
-	display: block;
-
-}
-
-/* Style the hamburger menu */
-.mobileNav a.icon {
-	display: block;
-
-}
-
-/* Add a grey background color on mouse-over */
-.mobileNav a:hover {
-	background-color: #9c121b;
-	color: black;
-}
 
 
-/*for desktop naavigation*/
-nav {
-	margin-left: auto;
-}
-
-.navList {
-	padding: 0;
-	margin: 0;
-	display: flex;
-	flex-direction: row;
-	list-style-type: none;
-}
-
-.navItem {
-	text-align: center;
-	font-size: 1.5em;
-	padding: 0.1em;
-	margin: 1.5em;
-}
-
-.navList a {
-	text-decoration: none;
-	color: ghostwhite;
-}
-
-.navList a:hover {
-	color: gainsboro;
-}
 
 /*Style for the main of website*/
 .main {
@@ -266,12 +262,12 @@ td {
 
 /*Media Quereies to be used on the header*/
 @media only screen and (max-width: 896px) {
-	.mobileNav {
+	#mobileNav {
 		display: block;
 
 	}
 
-	.desktopNav {
+	#desktopNav {
 		display: none;
 	}
 
