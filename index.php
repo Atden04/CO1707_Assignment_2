@@ -51,9 +51,14 @@ Assignment 1 index page
         <section id="liveOffers">
             <h1>Offers</h1>
             <ul>
-                <li><h2>Text here</h2><br>Text here</li>
-                <li><h2>Text here</h2><br>Text here</li>
-                <li><h2>Text here</h2><br>Text here</li>
+                <?php
+                    $connection = mysqli_connect("localhost", "atdenton", "SpBeSnKe30Uc", "atdenton");
+                    $result = mysqli_query($connection, "SELECT * FROM tbl_offers");
+                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+                    {
+                        echo "<li><h2>".$row["offer_title"]."</h2><br>".$row["offer_dec"]."</li>";
+                    }
+                ?>
             </ul>
         </section>
         <h1>Where opportunity creates success</h1>
