@@ -24,7 +24,7 @@ Assignment 1 index page
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
         <nav class="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
             <ul class="navList">
-                <li class="navItem"><a href="index.html">Home</a></li>
+                <li class="navItem"><a href="index.php">Home</a></li>
                 <li class="navItem"><a href="products.html"> Products</a> </li>
                 <li class="navItem"><a href="cart.html"> Cart</a> </li>
             </ul>
@@ -41,13 +41,26 @@ Assignment 1 index page
         </div>
         <!-- div of links for the page-->
         <div id="mobileNavList">
-            <a href="index.html">Home</a>
+            <a href="index.php">Home</a>
             <a href="products.html"> Products</a>
             <a href="cart.html"> Cart</a>
         </div>
     </header>
     <!-- Content captured from Desing Requirements video -->
     <div class="main">
+        <section id="liveOffers">
+            <h1>Offers</h1>
+            <ul>
+                <?php
+                    $connection = mysqli_connect("localhost", "atdenton", "SpBeSnKe30Uc", "atdenton");
+                    $result = mysqli_query($connection, "SELECT * FROM tbl_offers");
+                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+                    {
+                        echo "<li><h2>".$row["offer_title"]."</h2>".$row["offer_dec"]."</li>";
+                    }
+                ?>
+            </ul>
+        </section>
         <h1>Where opportunity creates success</h1>
         <p>Every student at The University of Central Lancashire is automatically a member of the Student's Union.
             We're here to make life better for students - inspiring you to succeed and achieve your goals.</p>
