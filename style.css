@@ -151,7 +151,8 @@ iframe {border: none;}
 	border: 0.2em solid grey;
 	border-radius: 1em;
 	padding: 1em;
-	width: 27%;
+	width: 325px;
+	height: 225px;
 	margin: 1%;
 }
 
@@ -190,8 +191,8 @@ iframe {border: none;}
 
 .product {
 	border: 0.2em solid black;
-	width: 27%;
-	margin: 1em;
+	width: 325px;
+	margin: 0.8em;
 }
 
 .productImage img {

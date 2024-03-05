@@ -52,7 +52,7 @@ Assignment 1 index page
             <h1>Offers</h1>
             <ul>
                 <?php
-                    $connection = mysqli_connect("localhost", "atdenton", "SpBeSnKe30Uc", "atdenton");
+                    $connection = mysqli_connect("localhost", "root", "", "union-shop");
                     $result = mysqli_query($connection, "SELECT * FROM tbl_offers");
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                     {

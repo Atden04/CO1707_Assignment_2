@@ -59,17 +59,12 @@ Assignment 1 products page
         </ul>
         <ul id="productList">
             <?php
-                $connection = mysqli_connect("localhost", "atdenton", "SpBeSnKe30Uc", "atdenton");
-                $types = mysqli_query($connection, "SELECT DISTINCT product_type FROM tbl_products;");
-                while ($type = mysqli_fetch_array($types, MYSQLI_ASSOC)) //loops through each type, essentially a for loop
+                $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                $rows = mysqli_query($connection, "SELECT * FROM tbl_products");
+                while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
-                    $rows = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_type=$type");
-                    while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
-                    {
-                        echo "<li class='product'><div class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></div><div class='productInfo'><h2>".$row["product_title"]."</h2><p>".$row["product_desc"]."<a href='item.html'>Read More.</a></p><p class='price'>".$row["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></div></li>";
-                    }
+                    echo "<li class='product'><div class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></div><div class='productInfo'><h2>".$row["product_title"]."</h2><p>".$row["product_desc"]."<a href='item.html'>Read More.</a></p><p class='price'>".$row["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></div></li>";
                 }
-                SELECT DISTINCT Country FROM Customers;
             ?>
         </ul>
     </div>
