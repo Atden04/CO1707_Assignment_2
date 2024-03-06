@@ -304,4 +304,8 @@ td {
 	header {
 		height: 7vh;
 	}
+
+	h2 {
+		font-size: 1.5em;
+	}
 }
