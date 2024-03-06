@@ -18,67 +18,83 @@ Assignment 1 products page
 
 <body onload="initialisePage()">
     <header>
-        <!-- header bar that is going to appear at the top of the screen  onload="updateNav()" onresize="updateNav()"-->
+        <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-        <nav class="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-            <ul class="navList">
-                <li class="navItem"><a href="index.php">Home</a></li>
-                <li class="navItem"><a href="products.html"> Products</a> </li>
-                <li class="navItem"><a href="cart.html"> Cart</a> </li>
+        <nav id="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
+            <ul id="desktopNavList">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.html"> Products</a> </li>
+                <li><a href="cart.html"> Cart</a> </li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
 
         <!-- First div is for burger menu icon-->
-        <div class="mobileNav">
+        <nav id="mobileNav">
             <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
             <a href="javascript:void(0);" class="icon" onclick="revealMobileNav()">
                 <i class="fa fa-bars"></i>
             </a>
             <!-- Navigation links (hidden by default) -->
-        </div>
-        <!-- div of links for the page-->
-        <div id="mobileNavList">
-            <a href="index.php">Home</a>
-            <a href="products.html"> Products</a>
-            <a href="cart.html"> Cart</a>
-        </div>
+            <!-- div of links for the page-->
+            <ul id="mobileNavList">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.html"> Products</a></li>
+                <li><a href="cart.html"> Cart</a></li>
+            </ul>
+        </nav>
     </header>
     <!-- Content captured from Desing Requirements video -->
-    <div class="side">
+    <aside id="productTopLink"><!--aside semantic-->
         <a href="#top">top</a>
-    </div>
-    <div class="main">
-        <ul id="productBookmarks">
+    </aside>
+    <main> <!--main semantic-->
+        <ul id="productSections"><!--nav semantic-->
             <li>Products > </li>
-            <li><a href="#hoodiesBookmark">Hoodies</a></li>
-            <li><a href="#jumpersBookmark">Jumpers</a> </li>
-            <li><a href="#tshirtsBookmark">T-Shirts</a> </li>
+            <li><a href="#hoodies">Hoodies</a></li>
+            <li><a href="#jumpers">Jumpers</a> </li>
+            <li><a href="#tshirts">T-Shirts</a> </li>
         </ul>
-        <ul id="productList">
-        </ul>
-    </div>
+        
+        <section id="hoodies">
+            <ul class="productList">
+            
+            
+            </ul>
+        </section>
+        <section id="jumpers">
+            <ul class="productList">
+            
+            
+            </ul>
+        </section>
+        <section id="tshirts">
+            <ul class="productList">
+            </ul>
+        </section>
+        
+    </main>
 
     <!-- Footer -->
-    <div class="footer">
-        <div class="footerSection">
+    <footer>
+        <section class="footerSection">
             <h3>Links</h3>
             <!-- link to student's union website-->
             <a href="https://www.uclansu.co.uk/">Students' Union</a>
-        </div>
-        <div class="footerSection">
+        </section>
+        <section class="footerSection">
             <h3>Contact</h3>
             <p>Email : suinformation@uclan.ac.uk</p>
             <p>Phone: 01772 89 3000</p>
-        </div>
-        <div class="footerSection">
+        </section>
+        <section class="footerSection">
             <h3>Location</h3>
             <p>University of Central Lancashire Students' Union,<br>Fylde Road, Preston. PR1 7BY<br>Registered in
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
-        </div>
-    </div>
+        </section>
+    </footer>
     <script>
         var hoodies = [['UCLan Hoodie (1)', 'Purple', 'cotton authentic character and practicality are combined in this comfy  warm and luxury hoodie for students that goes with everything to create casual looks', ' £39.99', 'images/hoodies/hoodie (1).jpg'],
         ['UCLan Hoodie (2)', 'Light Blue', 'cotton authentic character and practicality are combined in this comfy  warm and luxury hoodie for students that goes with everything to create casual looks', ' £39.99', 'images/hoodies/hoodie (2).jpg'],
@@ -194,30 +210,18 @@ Assignment 1 products page
 
 
         function initialisePage() {
-            var ul = document.getElementById("productList");
+            var ul = document.getElementsByClassName("productList");
 
             for (var i = 0; i < hoodies.length; i++) {
-                if (i == 0) {
-                    ul.innerHTML += "<li id='hoodiesBookmark' class='product'><div class ='productImage'><img src='" + hoodies[i][4] + "' alt=" + hoodies[i][0] + "></div><div class='productInfo'><h2>" + hoodies[i][0] + " - " + hoodies[i][1] + "</h2><p>" + hoodies[i][2] + " <a onclick='viewItem(hoodies[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + hoodies[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(hoodies[" + i + "])'>Buy</button></div></li>";
-                }
-                else {
-                    ul.innerHTML += "<li class='product'><div class ='productImage'><img src='" + hoodies[i][4] + "' alt=" + hoodies[i][0] + "></div><div class='productInfo'><h2>" + hoodies[i][0] + " - " + hoodies[i][1] + "</h2><p>" + hoodies[i][2] + " <a onclick='viewItem(hoodies[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + hoodies[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(hoodies[" + i + "])'>Buy</button></div></li>";
-                }
+                ul[0].innerHTML += "<li class='product'><div class ='productImage'><img src='" + hoodies[i][4] + "' alt=" + hoodies[i][0] + "></div><div class='productInfo'><h2>" + hoodies[i][0] + " - " + hoodies[i][1] + "</h2><p>" + hoodies[i][2] + " <a onclick='viewItem(hoodies[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + hoodies[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(hoodies[" + i + "])'>Buy</button></div></li>";
             }
-            for (var i = 0; i < jumpers.length; i++) {
-                if (i == 0) {
-                    ul.innerHTML += "<li id='jumpersBookmark' class='product'><div class ='productImage'><img src='" + jumpers[i][4] + "' alt=" + jumpers[i][0] + "></div><div class='productInfo'><h2>" + jumpers[i][0] + " - " + jumpers[i][1] + "</h2><p>" + jumpers[i][2] + " <a onclick='viewItem(jumpers[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + jumpers[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(jumpers[" + i + "])'>Buy</button></div></li>";
-                } else {
-                    ul.innerHTML += "<li class='product'><div class ='productImage'><img src='" + jumpers[i][4] + "' alt=" + jumpers[i][0] + "></div><div class='productInfo'><h2>" + jumpers[i][0] + " - " + jumpers[i][1] + "</h2><p>" + jumpers[i][2] + " <a onclick='viewItem(jumpers[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + jumpers[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(jumpers[" + i + "])'>Buy</button></div></li>";
-                }
-            }
-            for (var i = 0; i < tshirts.length; i++) {
-                if (i == 0) {
-                    ul.innerHTML += "<li id='tshirtsBookmark' class='product'><div class ='productImage'><img src='" + tshirts[i][4] + "' alt=" + tshirts[i][0] + "></div><div class='productInfo'><h2>" + tshirts[i][0] + " - " + tshirts[i][1] + "</h2><p>" + tshirts[i][2] + " <a onclick='viewItem(tshirts[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + tshirts[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(tshirts[" + i + "])'>Buy</button></div></li>";
 
-                } else {
-                    ul.innerHTML += "<li class='product'><div class ='productImage'><img src='" + tshirts[i][4] + "' alt=" + tshirts[i][0] + "></div><div class='productInfo'><h2>" + tshirts[i][0] + " - " + tshirts[i][1] + "</h2><p>" + tshirts[i][2] + " <a onclick='viewItem(tshirts[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + tshirts[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(tshirts[" + i + "])'>Buy</button></div></li>";
-                }
+            for (var i = 0; i < jumpers.length; i++) {
+                ul[1].innerHTML += "<li class='product'><div class ='productImage'><img src='" + jumpers[i][4] + "' alt=" + jumpers[i][0] + "></div><div class='productInfo'><h2>" + jumpers[i][0] + " - " + jumpers[i][1] + "</h2><p>" + jumpers[i][2] + " <a onclick='viewItem(jumpers[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + jumpers[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(jumpers[" + i + "])'>Buy</button></div></li>";
+            }
+
+            for (var i = 0; i < tshirts.length; i++) {
+                 ul[2].innerHTML += "<li class='product'><div class ='productImage'><img src='" + tshirts[i][4] + "' alt=" + tshirts[i][0] + "></div><div class='productInfo'><h2>" + tshirts[i][0] + " - " + tshirts[i][1] + "</h2><p>" + tshirts[i][2] + " <a onclick='viewItem(tshirts[" + i + "])' href='item.html'>Read More.</a></p><p class='price'>" + tshirts[i][3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(tshirts[" + i + "])'>Buy</button></div></li>";
             }
         }
 

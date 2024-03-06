@@ -18,36 +18,36 @@ Assignment 1 cart page
 
 <body onload="initialisePage()">
     <header>
-        <!-- header bar that is going to appear at the top of the screen  onload="updateNav()" onresize="updateNav()"-->
+        <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
         <nav class="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-            <ul class="navList">
-                <li class="navItem"><a href="index.php">Home</a></li>
-                <li class="navItem"><a href="products.html"> Products</a> </li>
-                <li class="navItem"><a href="cart.html"> Cart</a> </li>
+            <ul id="desktopNavList">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.html"> Products</a> </li>
+                <li><a href="cart.html"> Cart</a> </li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
 
         <!-- First div is for burger menu icon-->
-        <div class="mobileNav">
+        <nav id="mobileNav">
             <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
             <a href="javascript:void(0);" class="icon" onclick="revealMobileNav()">
                 <i class="fa fa-bars"></i>
             </a>
             <!-- Navigation links (hidden by default) -->
-        </div>
-        <!-- div of links for the page-->
-        <div id="mobileNavList">
-            <a href="index.php">Home</a>
-            <a href="products.html"> Products</a>
-            <a href="cart.html"> Cart</a>
-        </div>
+            <!-- div of links for the page-->
+            <ul id="mobileNavList">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.html"> Products</a></li>
+                <li><a href="cart.html"> Cart</a></li>
+            </ul>
+        </nav>
     </header>
     <!-- Content captured from Desing Requirements video -->
-    <div class="main">
+    <main>
         <h2>Shopping Cart</h2>
         <p>The items you've added to your shopping cart are:</p>
         <table>
@@ -59,29 +59,29 @@ Assignment 1 cart page
                 <th style="width:5%"></th>
             </tr>
         </table>
-    </div>
-    <div class="emptyBasketDiv">
-        <button type='button' onclick='emptyBasket()'>Empty Basket</button>
-    </div>
+        <aside class="emptyBasketDiv">
+            <button type='button' onclick='emptyBasket()'>Empty Basket</button>
+        </aside>
+    </main>
 
     <!-- Footer -->
-    <div class="footer">
-        <div class="footerSection">
+    <footer>
+        <section class="footerSection">
             <h3>Links</h3>
             <!-- link to student's union website-->
             <a href="https://www.uclansu.co.uk/">Students' Union</a>
-        </div>
-        <div class="footerSection">
+        </section>
+        <section class="footerSection">
             <h3>Contact</h3>
             <p>Email : suinformation@uclan.ac.uk</p>
             <p>Phone: 01772 89 3000</p>
-        </div>
-        <div class="footerSection">
+        </section>
+        <section class="footerSection">
             <h3>Location</h3>
             <p>University of Central Lancashire Students' Union,<br>Fylde Road, Preston. PR1 7BY<br>Registered in
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
-        </div>
-    </div>
+        </section>
+    </footer>
     <script>
         function initialisePage() {
 

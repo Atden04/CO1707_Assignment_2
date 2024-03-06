@@ -22,33 +22,33 @@ Assignment 1 index page
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-        <nav class="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-            <ul class="navList">
-                <li class="navItem"><a href="index.php">Home</a></li>
-                <li class="navItem"><a href="products.html"> Products</a> </li>
-                <li class="navItem"><a href="cart.html"> Cart</a> </li>
+        <nav id="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
+            <ul id="desktopNavList">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.html"> Products</a> </li>
+                <li><a href="cart.html"> Cart</a> </li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
 
         <!-- First div is for burger menu icon-->
-        <div class="mobileNav">
+        <nav id="mobileNav">
             <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
             <a href="javascript:void(0);" class="icon" onclick="revealMobileNav()">
                 <i class="fa fa-bars"></i>
             </a>
             <!-- Navigation links (hidden by default) -->
-        </div>
-        <!-- div of links for the page-->
-        <div id="mobileNavList">
-            <a href="index.php">Home</a>
-            <a href="products.html"> Products</a>
-            <a href="cart.html"> Cart</a>
-        </div>
+            <!-- div of links for the page-->
+            <ul id="mobileNavList">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.html"> Products</a></li>
+                <li><a href="cart.html"> Cart</a></li>
+            </ul>
+        </nav>
     </header>
     <!-- Content captured from Desing Requirements video -->
-    <div class="main">
-        <section id="liveOffers">
+    <main>
+    <section id="liveOffers">
             <h1>Offers</h1>
             <ul>
                 <?php
@@ -73,26 +73,26 @@ Assignment 1 index page
             title="This is #MyPreston - Youtube" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
-    </div>
+    </main>
 
     <!-- Footer -->
-    <div class="footer">
-        <div class="footerSection">
+    <footer>
+        <section class="footerSection">
             <h3>Links</h3>
             <!-- link to student's union website-->
             <a href="https://www.uclansu.co.uk/">Students' Union</a>
-        </div>
-        <div class="footerSection">
+        </section>
+        <section class="footerSection">
             <h3>Contact</h3>
             <p>Email : suinformation@uclan.ac.uk</p>
             <p>Phone: 01772 89 3000</p>
-        </div>
-        <div class="footerSection">
+        </section>
+        <section class="footerSection">
             <h3>Location</h3>
             <p>University of Central Lancashire Students' Union,<br>Fylde Road, Preston. PR1 7BY<br>Registered in
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
-        </div>
-    </div>
+        </section>
+    </footer>
     <script>
         /* for showing the mobile navigation when using the hamburger icon*/
         function revealMobileNav() {
