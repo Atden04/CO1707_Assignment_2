@@ -5,7 +5,7 @@
 Author: Alexander Denton
 ID : 21002180
 Date: 14/01/2024
-Assignment 1 item page
+Assignment 1 products page
 -->
 
 <head>
@@ -18,72 +18,76 @@ Assignment 1 item page
 
 <body onload="initialisePage()">
     <header>
-        <!-- header bar that is going to appear at the top of the screen  -->
+        <!-- header bar that is going to appear at the top of the screen  onload="updateNav()" onresize="updateNav()"-->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-        <nav id="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-            <ul id="desktopNavList">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="products.php"> Products</a> </li>
-                <li><a href="cart.html"> Cart</a> </li>
+        <nav class="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
+            <ul class="navList">
+                <li class="navItem"><a href="index.php">Home</a></li>
+                <li class="navItem"><a href="products.php"> Products</a> </li>
+                <li class="navItem"><a href="cart.html"> Cart</a> </li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
 
         <!-- First div is for burger menu icon-->
-        <nav id="mobileNav">
+        <div class="mobileNav">
             <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
             <a href="javascript:void(0);" class="icon" onclick="revealMobileNav()">
                 <i class="fa fa-bars"></i>
             </a>
             <!-- Navigation links (hidden by default) -->
-            <!-- div of links for the page-->
-            <ul id="mobileNavList">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="products.php"> Products</a></li>
-                <li><a href="cart.html"> Cart</a></li>
-            </ul>
-        </nav>
-     </header>
+        </div>
+        <!-- div of links for the page-->
+        <div id="mobileNavList">
+            <a href="index.php">Home</a>
+            <a href="products.php"> Products</a>
+            <a href="cart.html"> Cart</a>
+        </div>
+    </header>
     <!-- Content captured from Desing Requirements video -->
-    <main>
-        <ul id="itemList">
-                        
+    <div class="side">
+        <a href="#top">top</a>
+    </div>
+    <div class="main">
+        <ul id="productBookmarks">
+            <li>Products > </li>
+            <li><a href="#hoodiesBookmark">Hoodies</a></li>
+            <li><a href="#jumpersBookmark">Jumpers</a> </li>
+            <li><a href="#tshirtsBookmark">T-Shirts</a> </li>
         </ul>
-    </main>
+        <ul id="productList">
+            <?php
+                $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                $rows = mysqli_query($connection, "SELECT * FROM tbl_products");
+                while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
+                {
+                    echo "<li class='product'><div class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></div><div class='productInfo'><h2>".$row["product_title"]."</h2><p>".$row["product_desc"]."<a href='item.html'>Read More.</a></p><p class='price'>".$row["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></div></li>";
+                }
+            ?>
+        </ul>
+    </div>
 
     <!-- Footer -->
-    <footer>
-        <section class="footerSection">
+    <div class="footer">
+        <div class="footerSection">
             <h3>Links</h3>
             <!-- link to student's union website-->
             <a href="https://www.uclansu.co.uk/">Students' Union</a>
-        </section>
-        <section class="footerSection">
+        </div>
+        <div class="footerSection">
             <h3>Contact</h3>
             <p>Email : suinformation@uclan.ac.uk</p>
             <p>Phone: 01772 89 3000</p>
-        </section>
-        <section class="footerSection">
+        </div>
+        <div class="footerSection">
             <h3>Location</h3>
             <p>University of Central Lancashire Students' Union,<br>Fylde Road, Preston. PR1 7BY<br>Registered in
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
-        </section>
-    </footer>
+        </div>
+    </div>
     <script>
-        var itemDetails;
-        function initialisePage() {
-            let itemString = sessionStorage.getItem('itemDetails');
-            itemDetails = JSON.parse(itemString);
-            console.log(itemDetails);
-            var ul = document.getElementById("itemList");
-            console.log(ul);
-
-            ul.innerHTML = "<li class='item'><div class ='itemImage'><img src='" + itemDetails[4] + "' alt=" + itemDetails[0] + "></div><div class='itemInfo'><h2>" + itemDetails[0] + " - " + itemDetails[1] + "</h2><p>" + itemDetails[2] + "</p><p class='price'>" + itemDetails[3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(itemDetails)'>Buy</button></div></li>";
-            console.log(ul);
-        }
-
         function addItemToCart(itemDetails) {
             let itemString = JSON.stringify(itemDetails)
             let nextIndex = localStorage.length;
