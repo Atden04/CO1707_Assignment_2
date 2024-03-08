@@ -72,7 +72,7 @@ Assignment 1 index page
             title="This is #MyPreston - Youtube" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
-        </main>
+    </main>
 
     <!-- Footer -->
     <footer>

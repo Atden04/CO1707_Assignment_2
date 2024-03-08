@@ -48,7 +48,7 @@ Assignment 1 products page
     <!-- Content captured from Desing Requirements video -->
     <aside id="productTopLink">
         <a href="#top">top</a>
-    <aside>
+    </aside>
     <main>
         <ul id="productBookmarks">
             <li>Products > </li>
