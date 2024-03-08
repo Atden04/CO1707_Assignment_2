@@ -22,35 +22,34 @@ Assignment 1 products page
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-        <nav class="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
-            <ul class="navList">
-                <li class="navItem"><a href="index.php">Home</a></li>
-                <li class="navItem"><a href="products.php"> Products</a> </li>
-                <li class="navItem"><a href="cart.html"> Cart</a> </li>
+        <nav id="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
+            <ul id="desktopNavList">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.php">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
 
         <!-- First div is for burger menu icon-->
-        <div class="mobileNav">
+        <nav id="mobileNav">
             <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
             <a href="javascript:void(0);" class="icon" onclick="revealMobileNav()">
                 <i class="fa fa-bars"></i>
             </a>
             <!-- Navigation links (hidden by default) -->
-        </div>
-        <!-- div of links for the page-->
-        <div id="mobileNavList">
-            <a href="index.php">Home</a>
-            <a href="products.php"> Products</a>
-            <a href="cart.html"> Cart</a>
-        </div>
+            <ul id="mobileNavList">
+                <il><a href="index.php">Home</a></il>
+                <il><a href="products.php">Products</a></il>
+                <il><a href="cart.html">Cart</a></il>
+            </ul>
+        </nav>
     </header>
     <!-- Content captured from Desing Requirements video -->
-    <div class="side">
+    <aside id="productTopLink">
         <a href="#top">top</a>
-    </div>
-    <div class="main">
+    <aside>
+    <main>
         <ul id="productBookmarks">
             <li>Products > </li>
             <li><a href="#hoodiesBookmark">Hoodies</a></li>
@@ -67,26 +66,26 @@ Assignment 1 products page
                 }
             ?>
         </ul>
-    </div>
+    </main>
 
     <!-- Footer -->
-    <div class="footer">
-        <div class="footerSection">
+    <footer>
+        <section class="footerSection">
             <h3>Links</h3>
             <!-- link to student's union website-->
             <a href="https://www.uclansu.co.uk/">Students' Union</a>
-        </div>
-        <div class="footerSection">
+        </section>
+        <section class="footerSection">
             <h3>Contact</h3>
             <p>Email : suinformation@uclan.ac.uk</p>
             <p>Phone: 01772 89 3000</p>
-        </div>
-        <div class="footerSection">
+        </section>
+        <section class="footerSection">
             <h3>Location</h3>
             <p>University of Central Lancashire Students' Union,<br>Fylde Road, Preston. PR1 7BY<br>Registered in
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
-        </div>
-    </div>
+        </section>
+    </footer>
     <script>
         function addItemToCart(itemDetails) {
             let itemString = JSON.stringify(itemDetails)
