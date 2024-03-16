@@ -49,7 +49,15 @@ Assignment 1 item page
     <!-- Content captured from Desing Requirements video -->
     <main>
         <ul id="itemList">
-                        
+            <?php
+                $productID = $_GET["pid"];
+                $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
+                while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
+                {
+                    echo "<li class='item'><section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section><section class='itemInfo'><h2>".$product["product_title"]."</h2><p>".$product["product_desc"]."</p><p class='price'>".$product["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></section></li>";
+                }
+            ?>           
         </ul>
     </main>
 
