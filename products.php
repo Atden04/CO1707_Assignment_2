@@ -17,8 +17,8 @@ Assignment 1 products page
 </head>
 
 <body onload="initialisePage()">
-    <header>
-        <!-- header bar that is going to appear at the top of the screen  onload="updateNav()" onresize="updateNav()"-->
+<header>
+        <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
@@ -27,6 +27,7 @@ Assignment 1 products page
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="cart.html">Cart</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
@@ -42,6 +43,7 @@ Assignment 1 products page
                 <il><a href="index.php">Home</a></il>
                 <il><a href="products.php">Products</a></il>
                 <il><a href="cart.html">Cart</a></il>
+                <li><a href="signup.html">Sign Up</a></li>
             </ul>
         </nav>
     </header>

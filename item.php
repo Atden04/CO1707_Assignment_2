@@ -17,7 +17,7 @@ Assignment 1 item page
 </head>
 
 <body onload="initialisePage()">
-    <header>
+<header>
         <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
@@ -25,8 +25,9 @@ Assignment 1 item page
         <nav id="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
             <ul id="desktopNavList">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="products.php"> Products</a> </li>
-                <li><a href="cart.html"> Cart</a> </li>
+                <li><a href="products.php">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
@@ -38,14 +39,14 @@ Assignment 1 item page
                 <i class="fa fa-bars"></i>
             </a>
             <!-- Navigation links (hidden by default) -->
-            <!-- div of links for the page-->
             <ul id="mobileNavList">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="products.php"> Products</a></li>
-                <li><a href="cart.html"> Cart</a></li>
+                <il><a href="index.php">Home</a></il>
+                <il><a href="products.php">Products</a></il>
+                <il><a href="cart.html">Cart</a></il>
+                <li><a href="signup.html">Sign Up</a></li>
             </ul>
         </nav>
-     </header>
+    </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
         <ul id="itemList">
