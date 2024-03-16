@@ -62,7 +62,7 @@ Assignment 1 products page
                 $rows = mysqli_query($connection, "SELECT * FROM tbl_products");
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
-                    echo "<li class='product'><div class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></div><div class='productInfo'><h2>".$row["product_title"]."</h2><p>".$row["product_desc"]."<a href='item.html'>Read More.</a></p><p class='price'>".$row["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></div></li>";
+                    echo "<li class='product'><div class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></div><div class='productInfo'><h2>".$row["product_title"]."</h2><p>".$row["product_desc"]."<a href='item.html?pid=".$row["product_id"]"'>Read More.</a></p><p class='price'>".$row["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></div></li>";
                 }
             ?>
         </ul>
