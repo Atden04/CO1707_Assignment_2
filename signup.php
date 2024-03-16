@@ -26,8 +26,8 @@ Assignment 1 index page
             <ul id="desktopNavList">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="cart.html">Cart</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="cart.php">Cart</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
@@ -42,8 +42,8 @@ Assignment 1 index page
             <ul id="mobileNavList">
                 <il><a href="index.php">Home</a></il>
                 <il><a href="products.php">Products</a></il>
-                <il><a href="cart.html">Cart</a></il>
-                <li><a href="signup.html">Sign Up</a></li>
+                <il><a href="cart.php">Cart</a></il>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
     </header>
