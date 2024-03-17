@@ -54,8 +54,6 @@ Assignment 1 index page
     <!-- Content captured from Desing Requirements video -->
     <main>
         <?php
-        echo     $_SESSION["query"];
-            echo $_SESSION["logged"];
             echo "Welcome back " .$_SESSION["name"];
         ?>
         <section id="liveOffers">
