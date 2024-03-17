@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +55,7 @@ Assignment 1 item page
         <ul id="itemList">
             <?php
                 $productID = $_GET["pid"];
-                $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                $connection = require_once 'conn.php';
                 $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
                 while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
                 {

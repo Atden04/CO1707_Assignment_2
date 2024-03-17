@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,11 +53,16 @@ Assignment 1 index page
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
+        <?php
+        echo     $_SESSION["query"];
+            echo $_SESSION["logged"];
+            echo "Welcome back " .$_SESSION["name"];
+        ?>
         <section id="liveOffers">
             <h1>Offers</h1>
             <ul>
                 <?php
-                    $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                    $connection = require_once 'conn.php';
                     $result = mysqli_query($connection, "SELECT * FROM tbl_offers");
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                     {

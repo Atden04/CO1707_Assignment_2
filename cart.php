@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,17 +87,15 @@ Assignment 1 cart page
         <aside id="emptyBasketDiv">
             <button type='button' onclick='emptyBasket()'>Empty Basket</button>
         </aside>
-        <section id="login">
+        <form id="login" action="login.php" method="post">
             <p>In order to check out you must log in</p>
-            <form name="login">
-                <label>Email Address:
-                    <input type="text" name="email" required>
-                </label>
-                <label>Password:
-                    <input type="text" name="password" required>
-                </label>
-                <input type="submit" value="Submit">
-        </section>
+            <p><label>Email Address:</label>
+            <input type="text" name="email" required></p>
+            <p><label>Password:</label>
+            <input type="text" name="password" required></p>
+            
+            <input type="submit" value="Log Me In">
+        </form>
     </main>
     
 

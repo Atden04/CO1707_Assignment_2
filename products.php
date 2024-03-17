@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +63,7 @@ Assignment 1 products page
         </ul>
         <ul id="productList">
             <?php
-                $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                $connection = require_once 'conn.php';
                 $rows = mysqli_query($connection, "SELECT * FROM tbl_products");
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
