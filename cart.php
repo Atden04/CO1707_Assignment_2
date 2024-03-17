@@ -16,7 +16,7 @@ Assignment 1 cart page
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload="initialisePage()">
+<body>
     <header>
         <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
@@ -49,21 +49,54 @@ Assignment 1 cart page
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
-        <h2>Shopping Cart</h2>
-        <p>The items you've added to your shopping cart are:</p>
-        <table>
-            <tr>
-                <th style="width:10%">Item</th>
-                <th style="width:15%"></th>
-                <th style="width:33%">Product</th>
-                <th style="width:15%">Price</th>
-                <th style="width:5%"></th>
-            </tr>
-        </table>
+        <section id="cart">
+            <h2>Shopping Cart</h2>
+            <p>The items you've added to your shopping cart are:</p>
+            <table>
+                <tr>
+                    <th style="width:10%">Item</th>
+                    <th style="width:15%"></th>
+                    <th style="width:33%">Product</th>
+                    <th style="width:15%">Price</th>
+                    <th style="width:5%"></th>
+                </tr>
+
+                <?php
+                    if(isset($_COOKIE["cartProductIds"])) {
+                        $productIds = $_COOKIE["cartProductIds"];
+                        foreach ($productIds as $id) {
+                            $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                            $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$id);
+                            while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
+                            {
+                                echo "<tr>";
+                                echo "<th>0</th>";
+                                echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
+                                echo "<th>".$product["product_title"]."</th>";
+                                echo "<th>".$product["product_price"]."</th>";
+                                echo "<th><button type='button' class='removeButton' onclick=''>Remove</button></th>";
+                            }
+                        }
+                    }
+                ?>
+            </table>
+        </section>
+        <aside id="emptyBasketDiv">
+            <button type='button' onclick='emptyBasket()'>Empty Basket</button>
+        </aside>
+        <section id="login">
+            <p>In order to check out you must log in</p>
+            <form name="login">
+                <label>Email Address:
+                    <input type="text" name="email" required>
+                </label>
+                <label>Password:
+                    <input type="text" name="password" required>
+                </label>
+                <input type="submit" value="Submit">
+        </section>
     </main>
-    <aside id="emptyBasketDiv">
-        <button type='button' onclick='emptyBasket()'>Empty Basket</button>
-    </aside>
+    
 
     <!-- Footer -->
     <footer>
@@ -84,23 +117,6 @@ Assignment 1 cart page
         </section>
     </footer>
     <script>
-        function initialisePage() {
-
-            var table = document.getElementsByTagName("table")[0];
-            for (i = 0; i < localStorage.length; i++) {
-                let itemString = localStorage.getItem('item' + i);
-                let itemDetails = JSON.parse(itemString);
-
-                let nextRowIndex = table.length;
-                let row = table.insertRow(nextRowIndex);
-                row.insertCell(0).innerHTML = i;
-                row.insertCell(1).innerHTML = "<div><img class='cartImage' src='" + itemDetails[4] + "' alt=" + itemDetails[0] + "><p style='text-align:center'>"+itemDetails[1]+"</p></div>";
-                row.insertCell(2).innerHTML = itemDetails[0];
-                row.insertCell(3).innerHTML = itemDetails[3];
-                row.insertCell(4).innerHTML = "<button type='button' class='removeButton' onclick='removeItem("+i+")'>Remove</button>";
-            }
-        }
-
         function removeItem(itemIndex)
         {
             var itemName = JSON.parse(localStorage.getItem('item' + itemIndex))[0];

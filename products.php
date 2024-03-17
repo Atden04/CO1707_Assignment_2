@@ -64,7 +64,14 @@ Assignment 1 products page
                 $rows = mysqli_query($connection, "SELECT * FROM tbl_products");
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
-                    echo "<li class='product'><section class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></section><section class='productInfo'><h2>".$row["product_title"]."</h2><p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p><p class='price'>".$row["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></section></li>";
+                    echo "<li class='product'>";
+                    echo "<section class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></section>";
+                    echo "<section class='productInfo'>";
+                    echo "<h2>".$row["product_title"]."</h2>";
+                    echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
+                    echo "<p class='price'>".$row["product_price"]."</p>";
+                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$row["product_id"].")' >Buy</button></section>";
+                    echo "</li>";
                 }
             ?>
         </ul>
@@ -89,11 +96,18 @@ Assignment 1 products page
         </section>
     </footer>
     <script>
-        function addItemToCart(itemDetails) {
-            let itemString = JSON.stringify(itemDetails)
-            let nextIndex = localStorage.length;
-            localStorage.setItem("item" + nextIndex, itemString)
-            alert(itemDetails[0] + " added to cart!");
+        function addItemToCart(itemId) {
+
+            $.ajax({
+                type: 'POST',
+                url: "addProductToCookies.php",
+                data: {
+                    id: "itemId"
+                },
+                success: function (e) {
+                    alert(e);
+                }
+            });
         }
 
         /* for showing the mobile navigation when using the hamburger icon*/
