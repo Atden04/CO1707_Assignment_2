@@ -118,6 +118,14 @@ Assignment 1 cart page
         </section>
     </footer>
     <script>
+         function initialisePage() {
+            //local storage with an array called items with product IDs
+
+            //send http get request contains all the product id's in the url
+            //server takes them in and searched for those product ids and returns to the browser.
+
+         }
+
         function removeItem(itemIndex)
         {
             var itemName = JSON.parse(localStorage.getItem('item' + itemIndex))[0];

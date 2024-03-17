@@ -19,7 +19,7 @@ Assignment 1 products page
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload="initialisePage()">
+<body>
     <header>
         <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
@@ -73,7 +73,7 @@ Assignment 1 products page
                     echo "<h2>".$row["product_title"]."</h2>";
                     echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
                     echo "<p class='price'>".$row["product_price"]."</p>";
-                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$row["product_id"].")' >Buy</button></section>";
+                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$row["product_id"].", `".$row["product_title"]."`)' >Buy</button></section>";
                     echo "</li>";
                 }
             ?>
@@ -99,18 +99,13 @@ Assignment 1 products page
         </section>
     </footer>
     <script>
-        function addItemToCart(itemId) {
+        function addItemToCart(itemId, itemTitle) {
+            console.log(itemTitle);
 
-            $.ajax({
-                type: 'POST',
-                url: "addProductToCookies.php",
-                data: {
-                    id: "itemId"
-                },
-                success: function (e) {
-                    alert(e);
-                }
-            });
+            let itemString = JSON.stringify(itemDetails);
+            let nextIndex = localStorage.length;
+            localStorage.setItem("item" + nextIndex, itemString);
+
         }
 
         /* for showing the mobile navigation when using the hamburger icon*/
