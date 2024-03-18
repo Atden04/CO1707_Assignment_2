@@ -12,7 +12,7 @@
         $record = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $dbpassword = $record["user_pass"];
         if ($myPassword == $dbpassword){
-            $_SESSION["logged"] = true;
+            $_SESSION["loggedIn"] = true;
             $_SESSION["name"] = $record["user_full_name"];
             header ('Location: index.php');
         }else{
