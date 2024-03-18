@@ -76,28 +76,79 @@ Assignment 1 index page
 
             // This is the signup.php page, are you sure you want to tell the user to "sign up" when they're already on the page
             // is this meant to be on the logged in page instead?
+
+            $fullName = $email = $password = $confirmPassword = $address = "";
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+
+            $fullName = processInput($_POST["fullName"]);
+
+            $email = processInput($_POST["email"]);
+
+            $password = processInput($_POST["password"]);
+            $confirmPassword = processInput($_POST["confirmPassword"]);
+
+            $address = processInput($_POST["address"]);
+
+            }
+
+            function processInput($data) {
+
+            $data = trim($data);
+
+            $data = stripslashes($data);
+
+            $data = htmlspecialchars($data);
+
+            return $data;
+
+            }
+
         ?>
+
         <p>Sign Up</p>
         <p>In order to purchase from the Student's Union shop, you need to create an account with all fields below required. If you have any difficulties with the from places contact the <a>webmaster</a></p>
-        <form name="signup">
-            <label>Full Name:
-                <input type="text" name="username" required>
+        <form id="signup" method='post' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <p><label>Full Name:</label>
+            <input type="text" name="fullName" placeholder="Full Name" required></p>
+            <p><label>Email Address:</label>
+            <input type="email" name="email" placeholder="Email" required></p>
+
+            <p><label>Password:
+            <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
             </label>
-            <label>Email Address:
-                <input type="text" name="email" required>
-            </label>
-            <label>Password:
-                <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
-                <input type="text" name="password" required>
-            </label>
-            <label>Confirm Password:
-                <input type="text" name="confirmPassword" required>
-            </label>
-            <label>Address:
-                <input type="text" name="address" required>
-            </label>
+            <input type="password" name="password" placeholder="Password" onchange="checkPasswordRequirements('password')" required></p>
+            <p><label>Confirm Password:</label>
+                <input type="password" name="confirmPassword" placeholder="Repeat Password" onchange="checkPasswordsMatch('password', 'confirmPassword')" required></p>
+            <p><label>Address:</label>
+                <input type="text" name="address" placeholder="Address" required></p>
             <input type="submit" value="Submit">
         </form>
+        <?php
+
+            if ($password != $confirmPassword) {
+                echo "<p>You're passwords don't match, try again.</p>";
+            }
+
+            echo "<h2>Your Input:</h2>";
+
+            echo $fullName;
+
+            echo "<br>";
+
+            echo $email;
+
+            echo "<br>";
+
+            echo $password;
+
+            echo "<br>";
+
+            echo $address;
+
+            echo "<br>";
+
+        ?>
     </main>
 
     <!-- Footer -->
@@ -128,6 +179,13 @@ Assignment 1 index page
                 x.style.display = "block";
             }
         }
+
+        /* for checking password when being entered */
+        function checkPasswordRequirements(password) {
+
+        }
+
+        functin
     </script>
 </body>
 
