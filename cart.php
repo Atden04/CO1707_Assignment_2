@@ -109,14 +109,14 @@ Assignment 1 cart page
             <button type='button' onclick='emptyBasket()'>Empty Basket</button>
         </aside>
         <?php
-            if (!$_SESSION["loggedIn"]) {
+            if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) {
                 echo "<form id='login' action='login.php' method='post'>";
                 echo "<p>In order to check out you must log in</p>";
 
                 if (isset($_GET['passwordMatch'])) {
                     $passwordMatch = $_GET['passwordMatch'];
-                    $passwordMatch = settype($string, 'boolean');
-                    if (!$passwordMatch) {  //if password doesn't match
+                    //$passwordMatch = settype($string, 'boolean');
+                    if ($passwordMatch == "false") {  //if password doesn't match
                         echo "<p>The password you've entered does not match the email entered.<br>Please try again</P>";
                     }
                 }

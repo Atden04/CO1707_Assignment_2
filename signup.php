@@ -70,9 +70,12 @@ Assignment 1 index page
                 if ($noAccount)
                 {
                     //is user is redirecteed to this page for no account, notify them
-                    echo "<script>alert('The Account you've tried to log in with doesn't exist. Please Sign up')</script>";
+                    echo "<script>alert('The Account you\'ve tried to log in with doesn\'t exist. Please Sign up');</script>";
                 }
             }
+
+            // This is the signup.php page, are you sure you want to tell the user to "sign up" when they're already on the page
+            // is this meant to be on the logged in page instead?
         ?>
         <p>Sign Up</p>
         <p>In order to purchase from the Student's Union shop, you need to create an account with all fields below required. If you have any difficulties with the from places contact the <a>webmaster</a></p>
