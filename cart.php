@@ -30,7 +30,13 @@ Assignment 1 cart page
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="cart.php">Cart</a></li>
-                <li><a href="signup.php">Sign Up</a></li>
+                <?php
+                    if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+                        echo "<li><a href='logout.php?returnPage=cart.php'>Log Out</a></li>";
+                    } else {
+                        echo "<li><a href='signup.php'>Sign Up</a></li>";
+                    }
+                ?>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
@@ -46,7 +52,13 @@ Assignment 1 cart page
                 <il><a href="index.php">Home</a></il>
                 <il><a href="products.php">Products</a></il>
                 <il><a href="cart.php">Cart</a></il>
-                <li><a href="signup.php">Sign Up</a></li>
+                <?php
+                    if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+                        echo "<li><a href='logout.php?returnPage=cart.php'>Log Out</a></li>";
+                    } else {
+                        echo "<li><a href='signup.php'>Sign Up</a></li>";
+                    }
+                ?>
             </ul>
         </nav>
     </header>
@@ -54,6 +66,15 @@ Assignment 1 cart page
     <main>
         <section id="cart">
             <h2>Shopping Cart</h2>
+            <?php
+                if (isset($_SESSION["loggedIn"]) && isset($_SESSION["name"]))
+                {
+                    if ($_SESSION["loggedIn"])
+                    {
+                        echo "Welcome back " .$_SESSION["name"];
+                    }
+                }
+            ?>
             <p>The items you've added to your shopping cart are:</p>
             <table>
                 <tr>
@@ -87,15 +108,28 @@ Assignment 1 cart page
         <aside id="emptyBasketDiv">
             <button type='button' onclick='emptyBasket()'>Empty Basket</button>
         </aside>
-        <form id="login" action="login.php" method="post">
-            <p>In order to check out you must log in</p>
-            <p><label>Email Address:</label>
-            <input type="text" name="email" required></p>
-            <p><label>Password:</label>
-            <input type="text" name="password" required></p>
-            
-            <input type="submit" value="Log Me In">
-        </form>
+        <?php
+            if (!$_SESSION["loggedIn"]) {
+                echo "<form id='login' action='login.php' method='post'>";
+                echo "<p>In order to check out you must log in</p>";
+
+                if (isset($_GET['passwordMatch'])) {
+                    $passwordMatch = $_GET['passwordMatch'];
+                    $passwordMatch = settype($string, 'boolean');
+                    if (!$passwordMatch) {  //if password doesn't match
+                        echo "<p>The password you've entered does not match the email entered.<br>Please try again</P>";
+                    }
+                }
+
+                echo "<p><label>Email Address:</label>";
+                echo "<input type='text' name='email' required></p>";
+                echo "<p><label>Password:</label>";
+                echo "<input type='text' name='password' required></p>";
+                echo "<input type='submit' value='Log Me In'>";
+                echo "</form>";
+            }
+        ?>
+        
     </main>
     
 

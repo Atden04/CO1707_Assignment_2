@@ -30,7 +30,13 @@ Assignment 1 index page
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="cart.php">Cart</a></li>
-                <li><a href="signup.php">Sign Up</a></li>
+                <?php
+                    if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+                        echo "<li><a href='logout.php'>Log Out</a></li>";
+                    } else {
+                        echo "<li><a href='signup.php'>Sign Up</a></li>";
+                    }
+                ?>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
@@ -46,12 +52,28 @@ Assignment 1 index page
                 <il><a href="index.php">Home</a></il>
                 <il><a href="products.php">Products</a></il>
                 <il><a href="cart.php">Cart</a></il>
-                <li><a href="signup.php">Sign Up</a></li>
+                <?php
+                    if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+                        echo "<li><a href='logout.php'>Log Out</a></li>";
+                    } else {
+                        echo "<li><a href='signup.php'>Sign Up</a></li>";
+                    }
+                ?>
             </ul>
         </nav>
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
+        <?php
+            if (isset($_GET["noAccount"])) {
+                $noAccount = $_GET["noAccount"];
+                if ($noAccount)
+                {
+                    //is user is redirecteed to this page for no account, notify them
+                    echo "<script>alert('The Account you've tried to log in with doesn't exist. Please Sign up')</script>";
+                }
+            }
+        ?>
         <p>Sign Up</p>
         <p>In order to purchase from the Student's Union shop, you need to create an account with all fields below required. If you have any difficulties with the from places contact the <a>webmaster</a></p>
         <form name="signup">
