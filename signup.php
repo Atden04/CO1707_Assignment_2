@@ -118,13 +118,19 @@ Assignment 1 index page
             <p><label>Password:
             <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
             </label>
-            <input id="passwordInput" type="password" name="password" placeholder="Password"  required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninput="checkPasswordRequirements()"></p>
+            <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->
+            <input id="passwordInput" type="password" name="password" placeholder="Password" required onfocus="createPasswordRequirementsPrompt()" oninput="updatePasswordRequirementsPrompt()" onblur="hidePasswordRequirementsPrompt()"></p>
+            <section id="passwordRequirementPrompt">
+            </section>
             <p><label>Confirm Password:</label>
-                <input if="confirmPasswordInput" type="password" name="confirmPassword" placeholder="Repeat Password" required></p>
+            <input id="confirmPasswordInput" type="password" name="confirmPassword" placeholder="Repeat Password" required onfocus="createConfirmPasswordPrompt()" oninput="updateConfirmPasswordPrompt()" onblur="hideConfirmPasswordPrompt()"></p>
+            <section id="passwordConfirmPrompt">
+            </section>
             <p><label>Address:</label>
-                <input type="text" name="address" placeholder="Address" required></p>
+            <input type="text" name="address" placeholder="Address" required></p>
             <input type="submit" value="Submit">
         </form>
+        
         <?php
 
             if ($password != $confirmPassword) {
@@ -182,38 +188,75 @@ Assignment 1 index page
         }
 
         /* for checking password when being entered */
-        function checkPasswordRequirements() {
-            let main = document.getElementsByTagName("main")[0];
+        function createPasswordRequirementsPrompt() {
+            let passwordRequirementPrompt = document.getElementById("passwordRequirementPrompt");
+            passwordRequirementPrompt.innerHTML += "<p id='passwordLengthPrompt'></p>";
+            passwordRequirementPrompt.innerHTML += "<p id='passwordUppercasePrompt'></p>";
+            passwordRequirementPrompt.innerHTML += "<p id='passwordLowercasePrompt'></p>";
+            passwordRequirementPrompt.innerHTML += "<p id='passwordNumberPrompt'></p>";
+        }
+
+        function updatePasswordRequirementsPrompt() {
             let passwordInput = document.getElementById("passwordInput");
             let password = passwordInput.value;
-            console.log(main);
-            console.log(passwordInput);
-            console.log(password);
+            let passwordLengthPrompt = document.getElementById("passwordLengthPrompt");
             if (password.length >= 8)
             {
-                main.innerHTML += "<p>The password is long enough<p>";
+                passwordLengthPrompt.innerHTML = "The password is long enough";
             }
             else {
-                main.innerHTML += "<p>Password should be a minimum of 8 characters long</p>"
+                passwordLengthPrompt.innerHTML = "Password should be a minimum of 8 characters long";
             }
+
+            let passwordUppercasePrompt = document.getElementById("passwordUppercasePrompt");
             let capitalsInPassword = password.match(/[A-Z]/g)
             if (capitalsInPassword != null)  {
-                main.innerHTML += "<p>Password contains a capital< letterp>";
+                passwordUppercasePrompt.innerHTML = "Password contains a capital letter";
             }  else {
-                main.innerHTML += "<p>Password needs to contain a capital letter</p>"
+                passwordUppercasePrompt.innerHTML = "Password needs to contain a capital letter";
             }
+
+            let passwordLowercasePrompt = document.getElementById("passwordLowercasePrompt");
             let lowercaseInPassword = password.match(/[a-z]/g)
             if (lowercaseInPassword != null)  {
-                main.innerHTML += "<p>Password contains a lowercase letter<p>";
+                passwordLowercasePrompt.innerHTML = "Password contains a lowercase letter";
             }  else {
-                main.innerHTML += "<p>Password needs to contain a lowercase letter</p>"
+                passwordLowercasePrompt.innerHTML = "Password needs to contain a lowercase letter";
             }
+
+            let passwordNumberPrompt = document.getElementById("passwordNumberPrompt");
             let numbersInPassword = password.match(/[0-9]/g)
             if (numbersInPassword != null)  {
-                main.innerHTML += "<p>Password contains a lowercase letter<p>";
+                passwordNumberPrompt.innerHTML = "Password contains a number letter";
             }  else {
-                main.innerHTML += "<p>Password needs to contain a lowercase letter</p>"
+                passwordNumberPrompt.innerHTML = "Password needs to contain a number letter";
             }
+        }
+
+        function hidePasswordRequirementsPrompt() {
+            let passwordRequirementPrompt = document.getElementById("passwordRequirementPrompt");
+            passwordRequirementPrompt.innerHTML = "";
+        }
+
+        function createConfirmPasswordPrompt() {
+            let passwordConfirmPrompt = document.getElementById("passwordConfirmPrompt");
+            passwordConfirmPrompt.innerHTML = "<p id='confirmPrompt'></p>";
+        } 
+        
+        function updateConfirmPasswordPrompt() {
+            let password = document.getElementById("passwordInput").value;
+            let confirmedPassword = document.getElementById("confirmPasswordInput").value;
+            let confirmPrompt = document.getElementById("confirmPrompt");
+            if (password == confirmedPassword) {
+                confirmPrompt.innerHTML = "The Passwords Match";
+            } else {
+                confirmPrompt.innerHTML = "The Passwords do not Match";
+            }
+        } 
+        
+        function hideConfirmPasswordPrompt() {
+            let passwordConfirmPrompt = document.getElementById("passwordConfirmPrompt");
+            passwordConfirmPrompt.innerHTML = "";
         }
 
         function checkPasswordsMatch(password, confirmPassword) {
