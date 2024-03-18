@@ -73,7 +73,8 @@ Assignment 1 products page
                     echo "<h2>".$row["product_title"]."</h2>";
                     echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
                     echo "<p class='price'>".$row["product_price"]."</p>";
-                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$row["product_id"].", `".$row["product_title"]."`)' >Buy</button></section>";
+                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$row["product_id"].", `".$row["product_title"]."`, `".$row["product_desc"]."`, `".$row["product_image"]."`, `".$row["product_price"]."`)' >Buy</button>";
+                    echo "</section>";
                     echo "</li>";
                 }
             ?>
@@ -99,13 +100,12 @@ Assignment 1 products page
         </section>
     </footer>
     <script>
-        function addItemToCart(itemId, itemTitle) {
-            console.log(itemTitle);
-
+        function addItemToCart(itemId, itemTitle, itemDesc, itemImage, itemPrice) {
+            let itemDetails = [itemId, itemTitle, itemDesc, itemImage, itemPrice];
             let itemString = JSON.stringify(itemDetails);
             let nextIndex = localStorage.length;
             localStorage.setItem("item" + nextIndex, itemString);
-
+            alert(itemTitle + " added to cart!");
         }
 
         /* for showing the mobile navigation when using the hamburger icon*/

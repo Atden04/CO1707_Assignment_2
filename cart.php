@@ -19,7 +19,7 @@ Assignment 1 cart page
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
+<body onload=initialisePage()>
     <header>
         <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
@@ -64,8 +64,8 @@ Assignment 1 cart page
                     <th style="width:5%"></th>
                 </tr>
 
-                <?php
-                    if(isset($_COOKIE["cartProductIds"])) {
+                <!-- <?php
+                    /*if(isset($_COOKIE["cartProductIds"])) {
                         $productIds = $_COOKIE["cartProductIds"];
                         foreach ($productIds as $id) {
                             $connection = mysqli_connect("localhost", "root", "", "union-shop");
@@ -80,8 +80,8 @@ Assignment 1 cart page
                                 echo "<th><button type='button' class='removeButton' onclick=''>Remove</button></th>";
                             }
                         }
-                    }
-                ?>
+                    }*/
+                ?> -->
             </table>
         </section>
         <aside id="emptyBasketDiv">
@@ -123,7 +123,23 @@ Assignment 1 cart page
 
             //send http get request contains all the product id's in the url
             //server takes them in and searched for those product ids and returns to the browser.
+            var table = document.getElementsByTagName("table")[0];
+            for (i = 0; i < localStorage.length; i++) {
+                let itemKey = 'item' + i;
+                let itemString = localStorage.getItem(itemKey);
+                if (itemString != null) {
+                    let itemDetails = JSON.parse(itemString);
 
+                    let nextRowIndex = table.length;
+                    let row = table.insertRow(nextRowIndex);
+                    row.insertCell(0).innerHTML = i;
+                    row.insertCell(1).innerHTML = "<img class='cartImage' src='" + itemDetails[3] + "' alt=" + itemDetails[1] + ">";
+                    row.insertCell(2).innerHTML = itemDetails[1];
+                    row.insertCell(3).innerHTML = itemDetails[4];
+                    row.insertCell(4).innerHTML = "<button type='button' class='removeButton' onclick='removeItem("+i+")'>Remove</button>";
+                }
+                
+            }
          }
 
         function removeItem(itemIndex)

@@ -19,7 +19,7 @@ Assignment 1 item page
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload="initialisePage()">
+<body>
     <header>
         <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
@@ -59,7 +59,15 @@ Assignment 1 item page
                 $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
                 while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
                 {
-                    echo "<li class='item'><section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section><section class='itemInfo'><h2>".$product["product_title"]."</h2><p>".$product["product_desc"]."</p><p class='price'>".$product["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></section></li>";
+                    echo "<li class='item'>";
+                    echo "<section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section>";
+                    echo "<section class='itemInfo'>";
+                    echo "<h2>".$product["product_title"]."</h2>";
+                    echo "<p>".$product["product_desc"]."</p>";
+                    echo "<p class='price'>".$product["product_price"]."</p>";
+                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$product["product_id"].", `".$product["product_title"]."`, `".$product["product_desc"]."`, `".$product["product_image"]."`, `".$product["product_price"]."`)' >Buy</button>";
+                    echo "</section>";
+                    echo "</li>";
                 }
             ?>           
         </ul>
@@ -84,23 +92,12 @@ Assignment 1 item page
         </section>
     </footer>
     <script>
-        var itemDetails;
-        function initialisePage() {
-            let itemString = sessionStorage.getItem('itemDetails');
-            itemDetails = JSON.parse(itemString);
-            console.log(itemDetails);
-            var ul = document.getElementById("itemList");
-            console.log(ul);
-
-            ul.innerHTML = "<li class='item'><div class ='itemImage'><img src='" + itemDetails[4] + "' alt=" + itemDetails[0] + "></div><div class='itemInfo'><h2>" + itemDetails[0] + " - " + itemDetails[1] + "</h2><p>" + itemDetails[2] + "</p><p class='price'>" + itemDetails[3] + "</p><button type='button' class='buyButton' onclick='addItemToCart(itemDetails)'>Buy</button></div></li>";
-            console.log(ul);
-        }
-
-        function addItemToCart(itemDetails) {
-            let itemString = JSON.stringify(itemDetails)
+        function addItemToCart(itemId, itemTitle, itemDesc, itemImage, itemPrice) {
+            let itemDetails = [itemId, itemTitle, itemDesc, itemImage, itemPrice];
+            let itemString = JSON.stringify(itemDetails);
             let nextIndex = localStorage.length;
-            localStorage.setItem("item" + nextIndex, itemString)
-            alert(itemDetails[0] + " added to cart!");
+            localStorage.setItem("item" + nextIndex, itemString);
+            alert(itemTitle + " added to cart!");
         }
 
         /* for showing the mobile navigation when using the hamburger icon*/
