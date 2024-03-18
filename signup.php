@@ -113,14 +113,14 @@ Assignment 1 index page
             <input type="text" name="fullName" placeholder="Full Name" required></p>
             <!-- https://www.w3schools.com/tags/att_input_pattern.asp -->
             <p><label>Email Address:</label>
-            <input type="email" name="email" placeholder="Email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required></p>
+            <input type="email" name="email" placeholder="Email" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" ></p>
 
             <p><label>Password:
             <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
             </label>
-            <input id="passwordInput" type="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninput="checkPasswordRequirements()" required></p>
+            <input id="passwordInput" type="password" name="password" placeholder="Password"  required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninput="checkPasswordRequirements()"></p>
             <p><label>Confirm Password:</label>
-                <input if="confirmPasswordInput" type="password" name="confirmPassword" placeholder="Repeat Password" onchange="checkPasswordsMatch('password', 'confirmPassword')" required></p>
+                <input if="confirmPasswordInput" type="password" name="confirmPassword" placeholder="Repeat Password" required></p>
             <p><label>Address:</label>
                 <input type="text" name="address" placeholder="Address" required></p>
             <input type="submit" value="Submit">
@@ -184,16 +184,36 @@ Assignment 1 index page
         /* for checking password when being entered */
         function checkPasswordRequirements() {
             let main = document.getElementsByTagName("main")[0];
-            let passwordInput = document.getElementByID("passwordInput");
-            password = passwordInput.value;
-            if (value.length >= 8)
+            let passwordInput = document.getElementById("passwordInput");
+            let password = passwordInput.value;
+            console.log(main);
+            console.log(passwordInput);
+            console.log(password);
+            if (password.length >= 8)
             {
-                main.innerHTML += "<p>Password should be a minimum of 8 characters long<p>";
+                main.innerHTML += "<p>The password is long enough<p>";
             }
             else {
-                main.innerHTML += "<p>The password is long enough</p>"
+                main.innerHTML += "<p>Password should be a minimum of 8 characters long</p>"
             }
-            if (value.)
+            let capitalsInPassword = password.match(/[A-Z]/g)
+            if (capitalsInPassword != null)  {
+                main.innerHTML += "<p>Password contains a capital< letterp>";
+            }  else {
+                main.innerHTML += "<p>Password needs to contain a capital letter</p>"
+            }
+            let lowercaseInPassword = password.match(/[a-z]/g)
+            if (lowercaseInPassword != null)  {
+                main.innerHTML += "<p>Password contains a lowercase letter<p>";
+            }  else {
+                main.innerHTML += "<p>Password needs to contain a lowercase letter</p>"
+            }
+            let numbersInPassword = password.match(/[0-9]/g)
+            if (numbersInPassword != null)  {
+                main.innerHTML += "<p>Password contains a lowercase letter<p>";
+            }  else {
+                main.innerHTML += "<p>Password needs to contain a lowercase letter</p>"
+            }
         }
 
         function checkPasswordsMatch(password, confirmPassword) {
@@ -208,8 +228,6 @@ Assignment 1 index page
             }
             
         }
-
-        functin
     </script>
 </body>
 
