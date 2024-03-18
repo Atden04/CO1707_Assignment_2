@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,9 +19,9 @@ Assignment 1 products page
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload="initialisePage()">
+<body>
     <header>
-        <!-- header bar that is going to appear at the top of the screen  onload="updateNav()" onresize="updateNav()"-->
+        <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
@@ -26,7 +29,8 @@ Assignment 1 products page
             <ul id="desktopNavList">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="cart.html">Cart</a></li>
+                <li><a href="cart.php">Cart</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
@@ -41,7 +45,8 @@ Assignment 1 products page
             <ul id="mobileNavList">
                 <il><a href="index.php">Home</a></il>
                 <il><a href="products.php">Products</a></il>
-                <il><a href="cart.html">Cart</a></il>
+                <il><a href="cart.php">Cart</a></il>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
     </header>
@@ -58,11 +63,19 @@ Assignment 1 products page
         </ul>
         <ul id="productList">
             <?php
-                $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                $connection = require_once 'conn.php';
                 $rows = mysqli_query($connection, "SELECT * FROM tbl_products");
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
-                    echo "<li class='product'><div class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></div><div class='productInfo'><h2>".$row["product_title"]."</h2><p>".$row["product_desc"]."<a href='item.html'>Read More.</a></p><p class='price'>".$row["product_price"]."</p><button type='button' class='buyButton')'>Buy</button></div></li>";
+                    echo "<li class='product'>";
+                    echo "<section class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></section>";
+                    echo "<section class='productInfo'>";
+                    echo "<h2>".$row["product_title"]."</h2>";
+                    echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
+                    echo "<p class='price'>".$row["product_price"]."</p>";
+                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$row["product_id"].", `".$row["product_title"]."`, `".$row["product_desc"]."`, `".$row["product_image"]."`, `".$row["product_price"]."`)' >Buy</button>";
+                    echo "</section>";
+                    echo "</li>";
                 }
             ?>
         </ul>
@@ -87,11 +100,12 @@ Assignment 1 products page
         </section>
     </footer>
     <script>
-        function addItemToCart(itemDetails) {
-            let itemString = JSON.stringify(itemDetails)
+        function addItemToCart(itemId, itemTitle, itemDesc, itemImage, itemPrice) {
+            let itemDetails = [itemId, itemTitle, itemDesc, itemImage, itemPrice];
+            let itemString = JSON.stringify(itemDetails);
             let nextIndex = localStorage.length;
-            localStorage.setItem("item" + nextIndex, itemString)
-            alert(itemDetails[0] + " added to cart!");
+            localStorage.setItem("item" + nextIndex, itemString);
+            alert(itemTitle + " added to cart!");
         }
 
         /* for showing the mobile navigation when using the hamburger icon*/

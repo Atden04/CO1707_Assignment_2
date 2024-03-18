@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,17 +19,18 @@ Assignment 1 cart page
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload="initialisePage()">
+<body onload=initialisePage()>
     <header>
-        <!-- header bar that is going to appear at the top of the screen  onload="updateNav()" onresize="updateNav()"-->
+        <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
         <div class="siteName">Student Shop</div>
         <!-- place the navigation links in a <nav> tag for accessibility purposes -->
         <nav id="desktopNav"> <!-- place the navigation links in a <nav> tag for accessibility purposes -->
             <ul id="desktopNavList">
-                <li class="navItem"><a href="index.php">Home</a></li>
-                <li class="navItem"><a href="products.php"> Products</a> </li>
-                <li class="navItem"><a href="cart.html"> Cart</a> </li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.php">Products</a></li>
+                <li><a href="cart.php">Cart</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
@@ -41,27 +45,59 @@ Assignment 1 cart page
             <ul id="mobileNavList">
                 <il><a href="index.php">Home</a></il>
                 <il><a href="products.php">Products</a></il>
-                <il><a href="cart.html">Cart</a></il>
+                <il><a href="cart.php">Cart</a></il>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
-        <h2>Shopping Cart</h2>
-        <p>The items you've added to your shopping cart are:</p>
-        <table>
-            <tr>
-                <th style="width:10%">Item</th>
-                <th style="width:15%"></th>
-                <th style="width:33%">Product</th>
-                <th style="width:15%">Price</th>
-                <th style="width:5%"></th>
-            </tr>
-        </table>
+        <section id="cart">
+            <h2>Shopping Cart</h2>
+            <p>The items you've added to your shopping cart are:</p>
+            <table>
+                <tr>
+                    <th style="width:10%">Item</th>
+                    <th style="width:15%"></th>
+                    <th style="width:33%">Product</th>
+                    <th style="width:15%">Price</th>
+                    <th style="width:5%"></th>
+                </tr>
+
+                <!-- <?php
+                    /*if(isset($_COOKIE["cartProductIds"])) {
+                        $productIds = $_COOKIE["cartProductIds"];
+                        foreach ($productIds as $id) {
+                            $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                            $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$id);
+                            while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
+                            {
+                                echo "<tr>";
+                                echo "<th>0</th>";
+                                echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
+                                echo "<th>".$product["product_title"]."</th>";
+                                echo "<th>".$product["product_price"]."</th>";
+                                echo "<th><button type='button' class='removeButton' onclick=''>Remove</button></th>";
+                            }
+                        }
+                    }*/
+                ?> -->
+            </table>
+        </section>
+        <aside id="emptyBasketDiv">
+            <button type='button' onclick='emptyBasket()'>Empty Basket</button>
+        </aside>
+        <form id="login" action="login.php" method="post">
+            <p>In order to check out you must log in</p>
+            <p><label>Email Address:</label>
+            <input type="text" name="email" required></p>
+            <p><label>Password:</label>
+            <input type="text" name="password" required></p>
+            
+            <input type="submit" value="Log Me In">
+        </form>
     </main>
-    <aside id="emptyBasketDiv">
-        <button type='button' onclick='emptyBasket()'>Empty Basket</button>
-    </aside>
+    
 
     <!-- Footer -->
     <footer>
@@ -82,22 +118,29 @@ Assignment 1 cart page
         </section>
     </footer>
     <script>
-        function initialisePage() {
+         function initialisePage() {
+            //local storage with an array called items with product IDs
 
+            //send http get request contains all the product id's in the url
+            //server takes them in and searched for those product ids and returns to the browser.
             var table = document.getElementsByTagName("table")[0];
             for (i = 0; i < localStorage.length; i++) {
-                let itemString = localStorage.getItem('item' + i);
-                let itemDetails = JSON.parse(itemString);
+                let itemKey = 'item' + i;
+                let itemString = localStorage.getItem(itemKey);
+                if (itemString != null) {
+                    let itemDetails = JSON.parse(itemString);
 
-                let nextRowIndex = table.length;
-                let row = table.insertRow(nextRowIndex);
-                row.insertCell(0).innerHTML = i;
-                row.insertCell(1).innerHTML = "<div><img class='cartImage' src='" + itemDetails[4] + "' alt=" + itemDetails[0] + "><p style='text-align:center'>"+itemDetails[1]+"</p></div>";
-                row.insertCell(2).innerHTML = itemDetails[0];
-                row.insertCell(3).innerHTML = itemDetails[3];
-                row.insertCell(4).innerHTML = "<button type='button' class='removeButton' onclick='removeItem("+i+")'>Remove</button>";
+                    let nextRowIndex = table.length;
+                    let row = table.insertRow(nextRowIndex);
+                    row.insertCell(0).innerHTML = i;
+                    row.insertCell(1).innerHTML = "<img class='cartImage' src='" + itemDetails[3] + "' alt=" + itemDetails[1] + ">";
+                    row.insertCell(2).innerHTML = itemDetails[1];
+                    row.insertCell(3).innerHTML = itemDetails[4];
+                    row.insertCell(4).innerHTML = "<button type='button' class='removeButton' onclick='removeItem("+i+")'>Remove</button>";
+                }
+                
             }
-        }
+         }
 
         function removeItem(itemIndex)
         {

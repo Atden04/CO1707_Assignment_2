@@ -1,7 +1,6 @@
 <?php
     session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +8,7 @@
 Author: Alexander Denton
 ID : 21002180
 Date: 14/01/2024
-Assignment 1 index page
+Assignment 1 item page
 -->
 
 <head>
@@ -53,41 +52,25 @@ Assignment 1 index page
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
-        <?php
-            if (isset($_SESSION["loggedIn"]) && isset($_SESSION["name"]))
-            {
-                if ($_SESSION["loggedIn"])
+        <ul id="itemList">
+            <?php
+                $productID = $_GET["pid"];
+                $connection = require_once 'conn.php';
+                $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
+                while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
                 {
-                    echo "Welcome back " .$_SESSION["name"];
+                    echo "<li class='item'>";
+                    echo "<section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section>";
+                    echo "<section class='itemInfo'>";
+                    echo "<h2>".$product["product_title"]."</h2>";
+                    echo "<p>".$product["product_desc"]."</p>";
+                    echo "<p class='price'>".$product["product_price"]."</p>";
+                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$product["product_id"].", `".$product["product_title"]."`, `".$product["product_desc"]."`, `".$product["product_image"]."`, `".$product["product_price"]."`)' >Buy</button>";
+                    echo "</section>";
+                    echo "</li>";
                 }
-            }
-            
-        ?>
-        <section id="liveOffers">
-            <h1>Offers</h1>
-            <ul>
-                <?php
-                    $connection = require_once 'conn.php';
-                    $result = mysqli_query($connection, "SELECT * FROM tbl_offers");
-                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-                    {
-                        echo "<li><h2>".$row["offer_title"]."</h2>".$row["offer_dec"]."</li>";
-                    }
-                ?>
-            </ul>
-        </section>
-        <h1>Where opportunity creates success</h1>
-        <p>Every student at The University of Central Lancashire is automatically a member of the Student's Union.
-            We're here to make life better for students - inspiring you to succeed and achieve your goals.</p>
-        <p>Everything you need to know about UCLan Student's Union. Your membership starts here.</p>
-        <h2>Together</h2>
-        <video class="media" height="400" src="videos/video.mp4" controls>Sorry, your browser does not
-            support HTML5 and therefore cannot view this video</video>
-        <h2>Join our global community</h2>
-        <iframe class="media" height="400" src="https://youtube.com/embed/EI_lco-qdw8"
-            title="This is #MyPreston - Youtube" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
+            ?>           
+        </ul>
     </main>
 
     <!-- Footer -->
@@ -109,6 +92,14 @@ Assignment 1 index page
         </section>
     </footer>
     <script>
+        function addItemToCart(itemId, itemTitle, itemDesc, itemImage, itemPrice) {
+            let itemDetails = [itemId, itemTitle, itemDesc, itemImage, itemPrice];
+            let itemString = JSON.stringify(itemDetails);
+            let nextIndex = localStorage.length;
+            localStorage.setItem("item" + nextIndex, itemString);
+            alert(itemTitle + " added to cart!");
+        }
+
         /* for showing the mobile navigation when using the hamburger icon*/
         function revealMobileNav() {
             var x = document.getElementById("mobileNavList");
@@ -118,15 +109,6 @@ Assignment 1 index page
                 x.style.display = "block";
             }
         }
-
-        if (typeof (Storage) !== "undefined") {
-            alert("Storage API is permitted");
-        }
-        else {
-            alert("Storage API is not permitted");
-        }
-
-
     </script>
 </body>
 
