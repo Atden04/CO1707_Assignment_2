@@ -111,15 +111,16 @@ Assignment 1 index page
         <form id="signup" method='post' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <p><label>Full Name:</label>
             <input type="text" name="fullName" placeholder="Full Name" required></p>
+            <!-- https://www.w3schools.com/tags/att_input_pattern.asp -->
             <p><label>Email Address:</label>
-            <input type="email" name="email" placeholder="Email" required></p>
+            <input type="email" name="email" placeholder="Email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required></p>
 
             <p><label>Password:
             <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
             </label>
-            <input type="password" name="password" placeholder="Password" onchange="checkPasswordRequirements('password')" required></p>
+            <input id="passwordInput" type="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninput="checkPasswordRequirements()" required></p>
             <p><label>Confirm Password:</label>
-                <input type="password" name="confirmPassword" placeholder="Repeat Password" onchange="checkPasswordsMatch('password', 'confirmPassword')" required></p>
+                <input if="confirmPasswordInput" type="password" name="confirmPassword" placeholder="Repeat Password" onchange="checkPasswordsMatch('password', 'confirmPassword')" required></p>
             <p><label>Address:</label>
                 <input type="text" name="address" placeholder="Address" required></p>
             <input type="submit" value="Submit">
@@ -181,8 +182,31 @@ Assignment 1 index page
         }
 
         /* for checking password when being entered */
-        function checkPasswordRequirements(password) {
+        function checkPasswordRequirements() {
+            let main = document.getElementsByTagName("main")[0];
+            let passwordInput = document.getElementByID("passwordInput");
+            password = passwordInput.value;
+            if (value.length >= 8)
+            {
+                main.innerHTML += "<p>Password should be a minimum of 8 characters long<p>";
+            }
+            else {
+                main.innerHTML += "<p>The password is long enough</p>"
+            }
+            if (value.)
+        }
 
+        function checkPasswordsMatch(password, confirmPassword) {
+            let main = document.getElementsByTagName("main")[0];
+            if (password == confirmPassword)
+            {
+                main.innerHTML += "<p>The Passwords Match<p>";
+            }
+            else
+            {
+                main.innerHTML += "<p>The Passwords do not Match<p>";
+            }
+            
         }
 
         functin
