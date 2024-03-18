@@ -8,6 +8,7 @@
     $count = mysqli_num_rows($result);
     if ($count == 0) {
         header ('Location: signup.php?noAccount=true'); //fail state: username does not exist,
+        //so redirect use to the signup page to prompt them to create an account
     }else{
         $record = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $dbpassword = $record["user_pass"];
