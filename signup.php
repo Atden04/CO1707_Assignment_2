@@ -81,15 +81,34 @@ Assignment 1 index page
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") { 
 
-            $fullName = processInput($_POST["fullName"]);
+                $fullName = processInput($_POST["fullName"]);
 
-            $email = processInput($_POST["email"]);
+                $email = processInput($_POST["email"]);
 
-            $password = processInput($_POST["password"]);
-            $confirmPassword = processInput($_POST["confirmPassword"]);
+                $password = processInput($_POST["password"]);
+                $confirmPassword = processInput($_POST["confirmPassword"]);
 
-            $address = processInput($_POST["address"]);
+                $address = processInput($_POST["address"]);
 
+                if ($password == $confirmPassword)
+                {
+                    $connection = require_once 'conn.php';
+
+                    $rowsExistingEmail = mysqli_query($connection, "SELECT * FROM `tbl_users` WHERE user_email LIKE '$email'");
+                    $countRows = mysqli_num_rows($rowsExistingEmail);
+                    if ($countRows == 0) {   //if no rows then account with provided email doesn't exist
+                        //get num rows for next id and add data to databse.
+                        $rowsInTable = mysqli_query($connection, "SELECT * FROM tbl_users;");
+                        $id = mysqli_num_rows($rowsInTable)+1;
+                        mysqli_query($connection, "INSERT INTO `tbl_users`(`user_id`, `user_full_name`, `user_address`, `user_email`, `user_pass`, `user_timestamp`) VALUES ('$id','$fullName','$address','$email','$password',NOW())");
+                        echo "<script>alert('You\`re account has now been registered. You can now log in via the cart. ');</script>";
+                    } else {
+                        echo "<script>alert('An account already exists with the email provided. Please log in via the cart.');</script>";
+                    }
+                    
+
+                    
+                }
             }
 
             function processInput($data) {
