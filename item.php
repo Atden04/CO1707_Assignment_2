@@ -55,7 +55,7 @@ Assignment 1 item page
                 <il><a href="cart.php">Cart</a></il>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logoutScript.php?returnPage=products.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=products.php?pid=".$row["product_id"]."&returnPage=item.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
