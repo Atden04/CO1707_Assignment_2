@@ -30,7 +30,13 @@ Assignment 1 index page
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="cart.php">Cart</a></li>
-                <li><a href="signup.php">Sign Up</a></li>
+                <?php
+                    if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+                        echo "<li><a href='logout.php'>Log Out</a></li>";
+                    } else {
+                        echo "<li><a href='signup.php'>Sign Up</a></li>";
+                    }
+                ?>
             </ul>
         </nav>
         <!-- for mobile navigation https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
@@ -46,31 +52,101 @@ Assignment 1 index page
                 <il><a href="index.php">Home</a></il>
                 <il><a href="products.php">Products</a></il>
                 <il><a href="cart.php">Cart</a></il>
-                <li><a href="signup.php">Sign Up</a></li>
+                <?php
+                    if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+                        echo "<li><a href='logout.php'>Log Out</a></li>";
+                    } else {
+                        echo "<li><a href='signup.php'>Sign Up</a></li>";
+                    }
+                ?>
             </ul>
         </nav>
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
+        <?php
+            if (isset($_GET["noAccount"])) {
+                $noAccount = $_GET["noAccount"];
+                if ($noAccount)
+                {
+                    //is user is redirecteed to this page for no account, notify them
+                    echo "<script>alert('The Account you\'ve tried to log in with doesn\'t exist. Please Sign up');</script>";
+                }
+            }
+
+            // This is the signup.php page, are you sure you want to tell the user to "sign up" when they're already on the page
+            // is this meant to be on the logged in page instead?
+
+            $fullName = $email = $password = $confirmPassword = $address = "";
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+
+                $fullName = processInput($_POST["fullName"]);
+
+                $email = processInput($_POST["email"]);
+
+                $password = processInput($_POST["password"]);
+                $confirmPassword = processInput($_POST["confirmPassword"]);
+
+                $address = processInput($_POST["address"]);
+
+                if ($password == $confirmPassword)
+                {
+                    $connection = require_once 'conn.php';
+
+                    $rowsExistingEmail = mysqli_query($connection, "SELECT * FROM `tbl_users` WHERE user_email LIKE '$email'");
+                    $countRows = mysqli_num_rows($rowsExistingEmail);
+                    if ($countRows == 0) {   //if no rows then account with provided email doesn't exist
+                        //get num rows for next id and add data to databse.
+                        $rowsInTable = mysqli_query($connection, "SELECT * FROM tbl_users;");
+                        $id = mysqli_num_rows($rowsInTable)+1;
+                        mysqli_query($connection, "INSERT INTO `tbl_users`(`user_id`, `user_full_name`, `user_address`, `user_email`, `user_pass`, `user_timestamp`) VALUES ('$id','$fullName','$address','$email','$password',NOW())");
+                        echo "<script>alert('You\`re account has now been registered. You can now log in via the cart. ');</script>";
+                    } else {
+                        echo "<script>alert('An account already exists with the email provided. Please log in via the cart.');</script>";
+                    }
+                    
+
+                    
+                }
+            }
+
+            function processInput($data) {
+
+            $data = trim($data);
+
+            $data = stripslashes($data);
+
+            $data = htmlspecialchars($data);
+
+            return $data;
+
+            }
+
+        ?>
+
         <p>Sign Up</p>
         <p>In order to purchase from the Student's Union shop, you need to create an account with all fields below required. If you have any difficulties with the from places contact the <a>webmaster</a></p>
-        <form name="signup">
-            <label>Full Name:
-                <input type="text" name="username" required>
+        <form id="signup" method='post' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <p><label>Full Name:</label>
+            <input type="text" name="fullName" placeholder="Full Name" required></p>
+            <!-- https://www.w3schools.com/tags/att_input_pattern.asp -->
+            <p><label>Email Address:</label>
+            <input type="email" name="email" placeholder="Email" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" ></p>
+
+            <p><label>Password:
+            <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
             </label>
-            <label>Email Address:
-                <input type="text" name="email" required>
-            </label>
-            <label>Password:
-                <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
-                <input type="text" name="password" required>
-            </label>
-            <label>Confirm Password:
-                <input type="text" name="confirmPassword" required>
-            </label>
-            <label>Address:
-                <input type="text" name="address" required>
-            </label>
+            <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->
+            <input id="passwordInput" type="password" name="password" placeholder="Password" required onfocus="createPasswordRequirementsPrompt()" oninput="updatePasswordRequirementsPrompt()" onblur="hidePasswordRequirementsPrompt()"></p>
+            <section id="passwordRequirementPrompt">
+            </section>
+            <p><label>Confirm Password:</label>
+            <input id="confirmPasswordInput" type="password" name="confirmPassword" placeholder="Repeat Password" required onfocus="createConfirmPasswordPrompt()" oninput="updateConfirmPasswordPrompt()" onblur="hideConfirmPasswordPrompt()"></p>
+            <section id="passwordConfirmPrompt">
+            </section>
+            <p><label>Address:</label>
+            <input type="text" name="address" placeholder="Address" required></p>
             <input type="submit" value="Submit">
         </form>
     </main>
@@ -102,6 +178,83 @@ Assignment 1 index page
             } else {
                 x.style.display = "block";
             }
+        }
+
+        /* Creates elements to prompt user to create a useful password */
+        function createPasswordRequirementsPrompt() {
+            let passwordRequirementPrompt = document.getElementById("passwordRequirementPrompt");
+            passwordRequirementPrompt.innerHTML += "<p id='passwordLengthPrompt'></p>";
+            passwordRequirementPrompt.innerHTML += "<p id='passwordUppercasePrompt'></p>";
+            passwordRequirementPrompt.innerHTML += "<p id='passwordLowercasePrompt'></p>";
+            passwordRequirementPrompt.innerHTML += "<p id='passwordNumberPrompt'></p>";
+        }
+
+        /* Updates the output of the prompts as user enters password */
+        function updatePasswordRequirementsPrompt() {
+            let passwordInput = document.getElementById("passwordInput");
+            let password = passwordInput.value;
+            let passwordLengthPrompt = document.getElementById("passwordLengthPrompt");
+            if (password.length >= 8)
+            {
+                passwordLengthPrompt.innerHTML = "The password is long enough";
+            }
+            else {
+                passwordLengthPrompt.innerHTML = "Password should be a minimum of 8 characters long";
+            }
+
+            let passwordUppercasePrompt = document.getElementById("passwordUppercasePrompt");
+            let capitalsInPassword = password.match(/[A-Z]/g)
+            if (capitalsInPassword != null)  {
+                passwordUppercasePrompt.innerHTML = "Password contains a capital letter";
+            }  else {
+                passwordUppercasePrompt.innerHTML = "Password needs to contain a capital letter";
+            }
+
+            let passwordLowercasePrompt = document.getElementById("passwordLowercasePrompt");
+            let lowercaseInPassword = password.match(/[a-z]/g)
+            if (lowercaseInPassword != null)  {
+                passwordLowercasePrompt.innerHTML = "Password contains a lowercase letter";
+            }  else {
+                passwordLowercasePrompt.innerHTML = "Password needs to contain a lowercase letter";
+            }
+
+            let passwordNumberPrompt = document.getElementById("passwordNumberPrompt");
+            let numbersInPassword = password.match(/[0-9]/g)
+            if (numbersInPassword != null)  {
+                passwordNumberPrompt.innerHTML = "Password contains a number letter";
+            }  else {
+                passwordNumberPrompt.innerHTML = "Password needs to contain a number letter";
+            }
+        }
+
+        /*Deletes the html elements when user clicks off the password */
+        function hidePasswordRequirementsPrompt() {
+            let passwordRequirementPrompt = document.getElementById("passwordRequirementPrompt");
+            passwordRequirementPrompt.innerHTML = "";
+        }
+
+        /* Creates elements to prompt user if password is correct */
+        function createConfirmPasswordPrompt() {
+            let passwordConfirmPrompt = document.getElementById("passwordConfirmPrompt");
+            passwordConfirmPrompt.innerHTML = "<p id='confirmPrompt'></p>";
+        } 
+        
+        /* updates user when password is the same */
+        function updateConfirmPasswordPrompt() {
+            let password = document.getElementById("passwordInput").value;
+            let confirmedPassword = document.getElementById("confirmPasswordInput").value;
+            let confirmPrompt = document.getElementById("confirmPrompt");
+            if (password == confirmedPassword) {
+                confirmPrompt.innerHTML = "The Passwords Match";
+            } else {
+                confirmPrompt.innerHTML = "The Passwords do not Match";
+            }
+        } 
+        
+        /*deletes the pompt element*/
+        function hideConfirmPasswordPrompt() {
+            let passwordConfirmPrompt = document.getElementById("passwordConfirmPrompt");
+            passwordConfirmPrompt.innerHTML = "";
         }
     </script>
 </body>
