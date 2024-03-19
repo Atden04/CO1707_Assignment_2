@@ -71,7 +71,7 @@ Assignment 1 cart page
                 {
                     if ($_SESSION["loggedIn"])
                     {
-                        echo "Welcome back " .$_SESSION["name"];
+                        echo "<h2>Welcome back " .$_SESSION["name"]."</h2>";
                     }
                 }
             ?>
