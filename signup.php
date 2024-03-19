@@ -149,32 +149,6 @@ Assignment 1 index page
             <input type="text" name="address" placeholder="Address" required></p>
             <input type="submit" value="Submit">
         </form>
-        
-        <?php
-
-            if ($password != $confirmPassword) {
-                echo "<p>You're passwords don't match, try again.</p>";
-            }
-
-            echo "<h2>Your Input:</h2>";
-
-            echo $fullName;
-
-            echo "<br>";
-
-            echo $email;
-
-            echo "<br>";
-
-            echo $password;
-
-            echo "<br>";
-
-            echo $address;
-
-            echo "<br>";
-
-        ?>
     </main>
 
     <!-- Footer -->
@@ -206,7 +180,7 @@ Assignment 1 index page
             }
         }
 
-        /* for checking password when being entered */
+        /* Creates elements to prompt user to create a useful password */
         function createPasswordRequirementsPrompt() {
             let passwordRequirementPrompt = document.getElementById("passwordRequirementPrompt");
             passwordRequirementPrompt.innerHTML += "<p id='passwordLengthPrompt'></p>";
@@ -215,6 +189,7 @@ Assignment 1 index page
             passwordRequirementPrompt.innerHTML += "<p id='passwordNumberPrompt'></p>";
         }
 
+        /* Updates the output of the prompts as user enters password */
         function updatePasswordRequirementsPrompt() {
             let passwordInput = document.getElementById("passwordInput");
             let password = passwordInput.value;
@@ -252,16 +227,19 @@ Assignment 1 index page
             }
         }
 
+        /*Deletes the html elements when user clicks off the password */
         function hidePasswordRequirementsPrompt() {
             let passwordRequirementPrompt = document.getElementById("passwordRequirementPrompt");
             passwordRequirementPrompt.innerHTML = "";
         }
 
+        /* Creates elements to prompt user if password is correct */
         function createConfirmPasswordPrompt() {
             let passwordConfirmPrompt = document.getElementById("passwordConfirmPrompt");
             passwordConfirmPrompt.innerHTML = "<p id='confirmPrompt'></p>";
         } 
         
+        /* updates user when password is the same */
         function updateConfirmPasswordPrompt() {
             let password = document.getElementById("passwordInput").value;
             let confirmedPassword = document.getElementById("confirmPasswordInput").value;
@@ -273,22 +251,10 @@ Assignment 1 index page
             }
         } 
         
+        /*deletes the pompt element*/
         function hideConfirmPasswordPrompt() {
             let passwordConfirmPrompt = document.getElementById("passwordConfirmPrompt");
             passwordConfirmPrompt.innerHTML = "";
-        }
-
-        function checkPasswordsMatch(password, confirmPassword) {
-            let main = document.getElementsByTagName("main")[0];
-            if (password == confirmPassword)
-            {
-                main.innerHTML += "<p>The Passwords Match<p>";
-            }
-            else
-            {
-                main.innerHTML += "<p>The Passwords do not Match<p>";
-            }
-            
         }
     </script>
 </body>
