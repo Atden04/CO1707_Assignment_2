@@ -1,6 +1,7 @@
 <?php
     session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,7 @@
 Author: Alexander Denton
 ID : 21002180
 Date: 14/01/2024
-Assignment 1 item page
+Assignment 1 index page
 -->
 
 <head>
@@ -32,7 +33,7 @@ Assignment 1 item page
                 <li><a href="cart.php">Cart</a></li>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logoutScript.php?returnPage=products.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=index.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -54,7 +55,7 @@ Assignment 1 item page
                 <il><a href="cart.php">Cart</a></il>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logoutScript.php?returnPage=products.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=index.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -64,25 +65,9 @@ Assignment 1 item page
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
-        <ul id="itemList">
-            <?php
-                $productID = $_GET["pid"];
-                $connection = require_once 'conn.php';
-                $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
-                while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
-                {
-                    echo "<li class='item'>";
-                    echo "<section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section>";
-                    echo "<section class='itemInfo'>";
-                    echo "<h2>".$product["product_title"]."</h2>";
-                    echo "<p>".$product["product_desc"]."</p>";
-                    echo "<p class='price'>".$product["product_price"]."</p>";
-                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$product["product_id"].", `".$product["product_title"]."`, `".$product["product_desc"]."`, `".$product["product_image"]."`, `".$product["product_price"]."`)' >Buy</button>";
-                    echo "</section>";
-                    echo "</li>";
-                }
-            ?>           
-        </ul>
+        <h1>Error page</h1>
+        <p>The URL that you've entered does not point to a predefined page.</p>
+        <p>Please use the menu in the header to change the page or click <a href="index.php">here</a> to go to the home page.</p>
     </main>
 
     <!-- Footer -->
@@ -104,14 +89,6 @@ Assignment 1 item page
         </section>
     </footer>
     <script>
-        function addItemToCart(itemId, itemTitle, itemDesc, itemImage, itemPrice) {
-            let itemDetails = [itemId, itemTitle, itemDesc, itemImage, itemPrice];
-            let itemString = JSON.stringify(itemDetails);
-            let nextIndex = localStorage.length;
-            localStorage.setItem("item" + nextIndex, itemString);
-            alert(itemTitle + " added to cart!");
-        }
-
         /* for showing the mobile navigation when using the hamburger icon*/
         function revealMobileNav() {
             var x = document.getElementById("mobileNavList");

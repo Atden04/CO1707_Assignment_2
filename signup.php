@@ -32,7 +32,7 @@ Assignment 1 index page
                 <li><a href="cart.php">Cart</a></li>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logout.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -54,7 +54,7 @@ Assignment 1 index page
                 <il><a href="cart.php">Cart</a></il>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logout.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }

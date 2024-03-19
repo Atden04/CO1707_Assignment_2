@@ -15,6 +15,9 @@ Assignment 1 cart page
     <link rel="stylesheet" type="text/css" href="style.css"> <!-- link to the stylesheet -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Student Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -32,7 +35,7 @@ Assignment 1 cart page
                 <li><a href="cart.php">Cart</a></li>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logout.php?returnPage=cart.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=cart.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -54,7 +57,7 @@ Assignment 1 cart page
                 <il><a href="cart.php">Cart</a></il>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logout.php?returnPage=cart.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=cart.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -110,7 +113,7 @@ Assignment 1 cart page
         </aside>
         <?php
             if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) {
-                echo "<form id='login' action='login.php' method='post'>";
+                echo "<form id='login' action='loginScript.php' method='post'>";
                 echo "<p>In order to check out you must log in</p>";
 
                 if (isset($_GET['passwordMatch'])) {
