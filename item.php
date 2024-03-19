@@ -77,7 +77,7 @@ Assignment 1 item page
                     echo "<h2>".$product["product_title"]."</h2>";
                     echo "<p>".$product["product_desc"]."</p>";
                     echo "<p class='price'>".$product["product_price"]."</p>";
-                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$product["product_id"].", `".$product["product_title"]."`, `".$product["product_desc"]."`, `".$product["product_image"]."`, `".$product["product_price"]."`)' >Buy</button>";
+                    echo "<form id='productFilter' action='addProductToCookie.php?pid=".$row["product_id"]."' method='post'><input type='submit' value='Buy'></form>";
                     echo "</section>";
                     echo "</li>";
                 }

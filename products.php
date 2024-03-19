@@ -74,12 +74,12 @@ Assignment 1 products page
                 document.getElementById('productNameFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productName'];}?>";
             </script>
             <select id="productTypeFilter" name="productType">
-                <option value="allProducts">All Products</option>
+                <option value="allProducts" selected>All Products</option>
                 <option value="hoodies">Hoodies</option>
                 <option value="jumpers">Jumpers</option>
                 <option value="tshirts">T-Shirts</option>
                 <script type="text/javascript">
-                    document.getElementById('productTypeFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productType'];}?>";
+                    document.getElementById('productTypeFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productType'];} else {echo "allProducts";}?>";
                 </script>
             </select>
             
@@ -131,7 +131,7 @@ Assignment 1 products page
                     echo "<h2>".$row["product_title"]."</h2>";
                     echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
                     echo "<p class='price'>".$row["product_price"]."</p>";
-                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$row["product_id"].", `".$row["product_title"]."`, `".$row["product_desc"]."`, `".$row["product_image"]."`, `".$row["product_price"]."`)' >Buy</button>";
+                    echo "<form id='productFilter' action='addProductToCart.php?pid=".$row["product_id"]."' method='post'><input type='submit' value='Buy'></form>";
                     echo "</section>";
                     echo "</li>";
                 }
