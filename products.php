@@ -71,7 +71,7 @@ Assignment 1 products page
         <form id="productFilter" method='post'>
             <input id="productNameFilter" type="text" name="productName" placeholder="Filter">
             <script type="text/javascript">
-                document.getElementById('productNameFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productName'];}?>";
+                document.getElementById('productNameFilter').value = "<?php echo $_SESSION["productNameFilter"];?>";
             </script>
             <select id="productTypeFilter" name="productType">
                 <option value="allProducts" selected>All Products</option>
@@ -79,7 +79,7 @@ Assignment 1 products page
                 <option value="jumpers">Jumpers</option>
                 <option value="tshirts">T-Shirts</option>
                 <script type="text/javascript">
-                    document.getElementById('productTypeFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productType'];} else {echo "allProducts";}?>";
+                    document.getElementById('productTypeFilter').value = "<?php echo $_SESSION["productTypeFilter"];?>";
                 </script>
             </select>
             
@@ -88,35 +88,34 @@ Assignment 1 products page
         
         <ul id="productList">
             <?php
-                $productName = $productType = "";
+                //$_SESSION["productNameFilter"] = $_SESSION["productTypeFilter"] = "";
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-                    $productName = processInput($_POST["productName"]);
-        
-                    $productType = processInput($_POST["productType"]);
+                    $_SESSION["productNameFilter"] = processInput($_POST["productName"]);
+                    $_SESSION["productTypeFilter"] = processInput($_POST["productType"]);
                 }
 
                 $queryString = "SELECT * FROM tbl_products";    //query by default
                     
-                if ($productType == "allProducts" || $productType == "") {
-                    if ($productName != "") {
-                        $queryString .= " WHERE product_title LIKE '%$productName%'";
+                if ($_SESSION["productTypeFilter"] == "allProducts" || $_SESSION["productTypeFilter"] == "") {
+                    if ($_SESSION["productNameFilter"] != "") {
+                        $queryString = $queryString." WHERE product_title LIKE '%".$_SESSION["productNameFilter"]."%'";
                     }
-                } else if ($productType == "hoodies") {
-                    if ($productName != "") {
-                        $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Hoodie'";
+                } else if ($_SESSION["productTypeFilter"] == "hoodies") {
+                    if ($_SESSION["productNameFilter"] != "") {
+                        $queryString = $queryString." WHERE product_title LIKE '%".$_SESSION["productNameFilter"]."%' AND product_type = 'UCLan Hoodie'";
                     } else {
                         $queryString .= " WHERE product_type = 'UCLan Hoodie'";
                     }
-                } else if ($productType == "jumpers") {
-                    if ($productName != "") {
-                        $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Logo Jumper'";
+                } else if ($_SESSION["productTypeFilter"] == "jumpers") {
+                    if ($_SESSION["productNameFilter"] != "") {
+                        $queryString = $queryString." WHERE product_title LIKE '%".$_SESSION["productNameFilter"]."%' AND product_type = 'UCLan Logo Jumper'";
                     } else {
                         $queryString .= " WHERE product_type = 'UCLan Logo Jumper'";
                     }
-                } else if ($productType == "tshirts") {
-                    if ($productName != "") {
-                        $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Logo Tshirt'";
+                } else if ($_SESSION["productTypeFilter"] == "tshirts") {
+                    if ($_SESSION["productNameFilter"] != "") {
+                        $queryString = $queryString." WHERE product_title LIKE '%".$_SESSION["productNameFilter"]."%' AND product_type = 'UCLan Logo Tshirt'";
                     } else {
                         $queryString .= " WHERE product_type = 'UCLan Logo Tshirt'";
                     }
@@ -125,7 +124,7 @@ Assignment 1 products page
                 $rows = mysqli_query($connection, $queryString);
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
-                    echo "<li class='product'>";
+                    echo "<li class='product' id='productId".$row["product_id"]."'>";
                     echo "<section class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></section>";
                     echo "<section class='productInfo'>";
                     echo "<h2>".$row["product_title"]."</h2>";
