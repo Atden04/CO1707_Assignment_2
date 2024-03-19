@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $connection = require_once 'conn.php';         
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,8 +93,6 @@ Assignment 1 index page
 
                 if ($password == $confirmPassword)
                 {
-                    $connection = require_once 'conn.php';
-
                     $rowsExistingEmail = mysqli_query($connection, "SELECT * FROM `tbl_users` WHERE user_email LIKE '$email'");
                     $countRows = mysqli_num_rows($rowsExistingEmail);
                     if ($countRows == 0) {   //if no rows then account with provided email doesn't exist
@@ -127,7 +126,7 @@ Assignment 1 index page
 
         <p>Sign Up</p>
         <p>In order to purchase from the Student's Union shop, you need to create an account with all fields below required. If you have any difficulties with the from places contact the <a>webmaster</a></p>
-        <form id="signup" method='post' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <form id="signup" method='post' >
             <p><label>Full Name:</label>
             <input type="text" name="fullName" placeholder="Full Name" required></p>
             <!-- https://www.w3schools.com/tags/att_input_pattern.asp -->

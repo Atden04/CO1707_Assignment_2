@@ -1,6 +1,7 @@
 <?php
     session_start();
     $connection = require_once 'conn.php';
+    
     $myEmail = htmlspecialchars($_POST["email"]);
     $myPassword = htmlspecialchars($_POST["password"]);
     $query = "SELECT * from tbl_users WHERE user_email = '".$myEmail."'";

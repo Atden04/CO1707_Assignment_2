@@ -127,7 +127,7 @@ Assignment 1 cart page
                 echo "<p><label>Email Address:</label>";
                 echo "<input type='text' name='email' required></p>";
                 echo "<p><label>Password:</label>";
-                echo "<input type='text' name='password' required></p>";
+                echo "<input type='password' name='password' required></p>";
                 echo "<input type='submit' value='Log Me In'>";
                 echo "</form>";
             }
