@@ -68,15 +68,55 @@ Assignment 1 products page
         <a href="#top">top</a>
     </aside>
     <main>
-        <ul id="productBookmarks">
-            <li>Products > </li>
-            <li><a href="#hoodiesBookmark">Hoodies</a></li>
-            <li><a href="#jumpersBookmark">Jumpers</a> </li>
-            <li><a href="#tshirtsBookmark">T-Shirts</a> </li>
-        </ul>
+        <form id="productFilter" method='post'>
+            <input type="text" name="productName" placeholder="Filter">
+            <select name="productType">
+                <option value="allProducts" selected>All Products</option>
+                <option value="hoodies">Hoodies</option>
+                <option value="jumpers">Jumpers</option>
+                <option value="tshirts">T-Shirts</option>
+            </select>
+            
+            <input type="submit" value="Search">
+        </form>
+        
         <ul id="productList">
             <?php
-                $rows = mysqli_query($connection, "SELECT * FROM tbl_products");
+                $productName = $productType = "";
+
+                if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+                    $productName = processInput($_POST["productName"]);
+        
+                    $productType = processInput($_POST["productType"]);
+                }
+
+                $queryString = "SELECT * FROM tbl_products";    //query by default
+                    
+                if ($productType == "allProducts" || $productType == "") {
+                    if ($productName != "") {
+                        $queryString .= " WHERE product_title LIKE '%$productName%'";
+                    }
+                } else if ($productType == "hoodies") {
+                    if ($productName != "") {
+                        $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Hoodie'";
+                    } else {
+                        $queryString .= " WHERE product_title = 'UCLan Hoodie'";
+                    }
+                } else if ($productType == "jumpers") {
+                    if ($productName != "") {
+                        $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Logo Jumper'";
+                    } else {
+                        $queryString .= " WHERE product_title = 'UCLan Logo Jumper'";
+                    }
+                } else if ($productType == "tshirts") {
+                    if ($productName != "") {
+                        $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Logo Tshirt'";
+                    } else {
+                        $queryString .= " WHERE product_title = 'UCLan Logo Tshirt'";
+                    }
+                }
+                echo $queryString;
+                $rows = mysqli_query($connection, $queryString);
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
                     echo "<li class='product'>";
@@ -89,6 +129,18 @@ Assignment 1 products page
                     echo "</section>";
                     echo "</li>";
                 }
+
+                function processInput($data) {
+
+                    $data = trim($data);
+        
+                    $data = stripslashes($data);
+        
+                    $data = htmlspecialchars($data);
+        
+                    return $data;
+        
+                    }
             ?>
         </ul>
     </main>
