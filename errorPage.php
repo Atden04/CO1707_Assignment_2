@@ -33,7 +33,7 @@ Assignment 1 index page
                 <li><a href="cart.php">Cart</a></li>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logout.php?returnPage=index.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=index.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -55,7 +55,7 @@ Assignment 1 index page
                 <il><a href="cart.php">Cart</a></il>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logout.php?returnPage=index.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=index.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -65,7 +65,9 @@ Assignment 1 index page
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
-        <p>Error page</p>
+        <h1>Error page</h1>
+        <p>The URL that you've entered does not point to a predefined page.</p>
+        <p>Please use the menu in the header to change the page or click <a href="index.php">here</a> to go to the home page.</p>
     </main>
 
     <!-- Footer -->
