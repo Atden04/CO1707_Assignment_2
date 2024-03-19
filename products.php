@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $connection = require_once 'conn.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +76,6 @@ Assignment 1 products page
         </ul>
         <ul id="productList">
             <?php
-                $connection = require_once 'conn.php';
                 $rows = mysqli_query($connection, "SELECT * FROM tbl_products");
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {

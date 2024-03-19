@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $connection = require_once 'conn.php';         
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,8 +93,6 @@ Assignment 1 index page
 
                 if ($password == $confirmPassword)
                 {
-                    $connection = require_once 'conn.php';
-
                     $rowsExistingEmail = mysqli_query($connection, "SELECT * FROM `tbl_users` WHERE user_email LIKE '$email'");
                     $countRows = mysqli_num_rows($rowsExistingEmail);
                     if ($countRows == 0) {   //if no rows then account with provided email doesn't exist
