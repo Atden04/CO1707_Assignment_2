@@ -69,12 +69,18 @@ Assignment 1 products page
     </aside>
     <main>
         <form id="productFilter" method='post'>
-            <input type="text" name="productName" placeholder="Filter">
-            <select name="productType">
-                <option value="allProducts" selected>All Products</option>
+            <input id="productNameFilter" type="text" name="productName" placeholder="Filter">
+            <script type="text/javascript">
+                document.getElementById('productNameFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productName'];}?>";
+            </script>
+            <select id="productTypeFilter" name="productType">
+                <option value="allProducts">All Products</option>
                 <option value="hoodies">Hoodies</option>
                 <option value="jumpers">Jumpers</option>
                 <option value="tshirts">T-Shirts</option>
+                <script type="text/javascript">
+                    document.getElementById('productTypeFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productType'];}?>";
+                </script>
             </select>
             
             <input type="submit" value="Search">
@@ -100,22 +106,22 @@ Assignment 1 products page
                     if ($productName != "") {
                         $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Hoodie'";
                     } else {
-                        $queryString .= " WHERE product_title = 'UCLan Hoodie'";
+                        $queryString .= " WHERE product_type = 'UCLan Hoodie'";
                     }
                 } else if ($productType == "jumpers") {
                     if ($productName != "") {
                         $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Logo Jumper'";
                     } else {
-                        $queryString .= " WHERE product_title = 'UCLan Logo Jumper'";
+                        $queryString .= " WHERE product_type = 'UCLan Logo Jumper'";
                     }
                 } else if ($productType == "tshirts") {
                     if ($productName != "") {
                         $queryString .= " WHERE product_title LIKE '%$productName%' AND product_type = 'UCLan Logo Tshirt'";
                     } else {
-                        $queryString .= " WHERE product_title = 'UCLan Logo Tshirt'";
+                        $queryString .= " WHERE product_type = 'UCLan Logo Tshirt'";
                     }
                 }
-                echo $queryString;
+
                 $rows = mysqli_query($connection, $queryString);
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
