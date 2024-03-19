@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $connection = require_once 'conn.php';         
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,14 +16,11 @@ Assignment 1 cart page
     <link rel="stylesheet" type="text/css" href="style.css"> <!-- link to the stylesheet -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
     <title>Student Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload=initialisePage()>
+<body>
     <header>
         <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
@@ -88,24 +86,32 @@ Assignment 1 cart page
                     <th style="width:5%"></th>
                 </tr>
 
-                <!-- <?php
-                    /*if(isset($_COOKIE["cartProductIds"])) {
-                        $productIds = $_COOKIE["cartProductIds"];
-                        foreach ($productIds as $id) {
+                <?php
+
+                    $cookie_name = "cartProductIds";
+
+                    if (!empty($_COOKIE[$cookie_name])) {
+                        $productIds = unserialize($_COOKIE[$cookie_name]);
+
+                        for ($i = 0; $i<count($productIds); $i++) {
                             $connection = mysqli_connect("localhost", "root", "", "union-shop");
-                            $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$id);
+                            $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productIds[$i]);
                             while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
                             {
                                 echo "<tr>";
-                                echo "<th>0</th>";
+                                echo "<th>".$i."</th>";
                                 echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
                                 echo "<th>".$product["product_title"]."</th>";
                                 echo "<th>".$product["product_price"]."</th>";
-                                echo "<th><button type='button' class='removeButton' onclick=''>Remove</button></th>";
+                                echo "<th><form class='removeButton' action='removeProductFromCart.php?pid=".$product["product_id"]."' method='post'><input type='submit' value='Remove'></form></th>";
+                                echo "</tr>";
                             }
                         }
-                    }*/
-                ?> -->
+
+                    } else {
+                        //display basked is empty
+                    }
+                ?>
             </table>
         </section>
         <aside id="emptyBasketDiv">
