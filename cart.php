@@ -103,7 +103,7 @@ Assignment 1 cart page
                                 echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
                                 echo "<th>".$product["product_title"]."</th>";
                                 echo "<th>".$product["product_price"]."</th>";
-                                echo "<th><form class='removeButton' action='removeProductFromCart.php?pid=".$product["product_id"]."' method='post'><input type='submit' value='Remove'></form></th>";
+                                echo "<th><form class='removeButton' action='removeProductFromCart.php?idx=".$i."' method='post'><input type='submit' value='Remove'></form></th>";
                                 echo "</tr>";
                             }
                         }
