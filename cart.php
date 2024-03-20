@@ -76,7 +76,15 @@ Assignment 1 cart page
                     }
                 }
             ?>
-            <p>The items you've added to your shopping cart are:</p>
+            <?php
+                $cookie_name = "cartProductIds";
+                if (empty($_COOKIE[$cookie_name])) {
+                    echo "<h3>You're cart is currently empty</h3>";
+                } else {
+                    echo "<p>The items you've added to your shopping cart are:</p>";
+                }
+            ?>
+            
             <table>
                 <tr>
                     <th style="width:10%">Item</th>
@@ -108,17 +116,24 @@ Assignment 1 cart page
                             }
                         }
 
+                        echo "<tr><th></th><th></th><th></th><th></th>";
+                        echo "<th><form action='emptyCart.php' method='post'>";
+                        echo "<input type='submit' value='Empty Cart'>";
+                        echo "</form></th>";
+                        echo "</tr>";
+
                     } else {
                         //display basked is empty
                     }
                 ?>
+                
             </table>
+                
         </section>
-        <aside id="emptyBasketDiv">
-            <button type='button' onclick='emptyBasket()'>Empty Basket</button>
-        </aside>
+        <section>
         <?php
             if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) {
+                echo "<hr>";
                 echo "<form id='login' action='loginScript.php' method='post'>";
                 echo "<p>In order to check out you must log in</p>";
 
@@ -138,7 +153,7 @@ Assignment 1 cart page
                 echo "</form>";
             }
         ?>
-        
+        </seciton>
     </main>
     
 
