@@ -111,13 +111,13 @@ Assignment 1 cart page
                                 echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
                                 echo "<th>".$product["product_title"]."</th>";
                                 echo "<th>".$product["product_price"]."</th>";
-                                echo "<th><form class='removeButton' action='removeProductFromCart.php?idx=".$i."' method='post'><input type='submit' value='Remove'></form></th>";
+                                echo "<th><form class='removeButton' action='removeProductFromCartScript.php?idx=".$i."' method='post'><input type='submit' value='Remove'></form></th>";
                                 echo "</tr>";
                             }
                         }
 
                         echo "<tr><th></th><th></th><th></th><th></th>";
-                        echo "<th><form action='emptyCart.php' method='post'>";
+                        echo "<th><form action='emptyCartScript.php' method='post'>";
                         echo "<input type='submit' value='Empty Cart'>";
                         echo "</form></th>";
                         echo "</tr>";
