@@ -1,6 +1,15 @@
 <?php
     session_start();
     $connection = require_once 'conn.php';
+
+    if (!isset($_SESSION["alertedOfCookies"])) {
+        echo "<script>alert('Cookies are used on this page.');</script>";
+        $_SESSION["alertedOfCookies"] = true;
+    }
+    else if (!$_SESSION["alertedOfCookies"]) {
+        echo "<script>alert('Cookies are used on this page.');</script>";
+        $_SESSION["alertedOfCookies"] = true;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -67,11 +76,11 @@ Assignment 1 index page
     <!-- Content captured from Desing Requirements video -->
     <main>
         <?php
-            if (isset($_SESSION["loggedIn"]) && isset($_SESSION["name"]))
+            if (isset($_SESSION["loggedIn"]) && isset($_SESSION["userName"]))
             {
                 if ($_SESSION["loggedIn"])
                 {
-                    echo "<h2>Welcome back " .$_SESSION["name"]."</h2>";
+                    echo "<h2>Welcome back " .$_SESSION["userName"]."</h2>";
                 }
             }
         ?>
@@ -119,6 +128,16 @@ Assignment 1 index page
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
         </section>
     </footer>
+    <?php
+        if (!isset($_SESSION["alertedOfCookies"])) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+        else if (!$_SESSION["alertedOfCookies"]) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+    ?>
     <script>
         /* for showing the mobile navigation when using the hamburger icon*/
         function revealMobileNav() {
@@ -129,15 +148,6 @@ Assignment 1 index page
                 x.style.display = "block";
             }
         }
-
-        if (typeof (Storage) !== "undefined") {
-            alert("Storage API is permitted");
-        }
-        else {
-            alert("Storage API is not permitted");
-        }
-
-
     </script>
 </body>
 

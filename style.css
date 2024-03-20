@@ -237,7 +237,7 @@ td {
   margin-right: auto;
 }
 
-#emptyBasketDiv button {
+#emptyCartForm input[type=submit] {
 	position: fixed;
 	top: 50%;
 	right: 0.5em;

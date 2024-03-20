@@ -55,7 +55,7 @@ Assignment 1 item page
                 <il><a href="cart.php">Cart</a></il>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logoutScript.php?returnPage=products.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=products.php?pid=".$row["product_id"]."&returnPage=item.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -77,7 +77,7 @@ Assignment 1 item page
                     echo "<h2>".$product["product_title"]."</h2>";
                     echo "<p>".$product["product_desc"]."</p>";
                     echo "<p class='price'>".$product["product_price"]."</p>";
-                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$product["product_id"].", `".$product["product_title"]."`, `".$product["product_desc"]."`, `".$product["product_image"]."`, `".$product["product_price"]."`)' >Buy</button>";
+                    echo "<form id='productFilter' action='addProductToCartScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='post'><input type='submit' value='Buy'></form>";
                     echo "</section>";
                     echo "</li>";
                 }
@@ -103,6 +103,16 @@ Assignment 1 item page
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
         </section>
     </footer>
+    <?php
+        if (!isset($_SESSION["alertedOfCookies"])) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+        else if (!$_SESSION["alertedOfCookies"]) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+    ?>
     <script>
         function addItemToCart(itemId, itemTitle, itemDesc, itemImage, itemPrice) {
             let itemDetails = [itemId, itemTitle, itemDesc, itemImage, itemPrice];

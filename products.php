@@ -74,12 +74,12 @@ Assignment 1 products page
                 document.getElementById('productNameFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productName'];}?>";
             </script>
             <select id="productTypeFilter" name="productType">
-                <option value="allProducts">All Products</option>
+                <option value="allProducts" selected>All Products</option>
                 <option value="hoodies">Hoodies</option>
                 <option value="jumpers">Jumpers</option>
                 <option value="tshirts">T-Shirts</option>
                 <script type="text/javascript">
-                    document.getElementById('productTypeFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productType'];}?>";
+                    document.getElementById('productTypeFilter').value = "<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $_POST['productType'];} else {echo "allProducts";}?>";
                 </script>
             </select>
             
@@ -87,14 +87,16 @@ Assignment 1 products page
         </form>
         
         <ul id="productList">
-            <?php
+        <?php
                 $productName = $productType = "";
+
+                
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
                     $productName = processInput($_POST["productName"]);
         
                     $productType = processInput($_POST["productType"]);
-                }
+                } 
 
                 $queryString = "SELECT * FROM tbl_products";    //query by default
                     
@@ -125,13 +127,13 @@ Assignment 1 products page
                 $rows = mysqli_query($connection, $queryString);
                 while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
                 {
-                    echo "<li class='product'>";
+                    echo "<li class='product' id='productId".$row["product_id"]."'>";
                     echo "<section class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></section>";
                     echo "<section class='productInfo'>";
                     echo "<h2>".$row["product_title"]."</h2>";
                     echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
                     echo "<p class='price'>".$row["product_price"]."</p>";
-                    echo "<button type='button' class='buyButton' onclick='addItemToCart(".$row["product_id"].", `".$row["product_title"]."`, `".$row["product_desc"]."`, `".$row["product_image"]."`, `".$row["product_price"]."`)' >Buy</button>";
+                    echo "<form id='productFilter' action='addProductToCartScript.php?pid=".$row["product_id"]."&returnPage=products.php&pName=".$row["product_title"]."' method='post'><input type='submit' value='Buy'></form>";
                     echo "</section>";
                     echo "</li>";
                 }
@@ -169,6 +171,16 @@ Assignment 1 products page
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
         </section>
     </footer>
+    <?php
+        if (!isset($_SESSION["alertedOfCookies"])) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+        else if (!$_SESSION["alertedOfCookies"]) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+    ?>
     <script>
         function addItemToCart(itemId, itemTitle, itemDesc, itemImage, itemPrice) {
             let itemDetails = [itemId, itemTitle, itemDesc, itemImage, itemPrice];

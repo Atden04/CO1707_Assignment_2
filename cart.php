@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $connection = require_once 'conn.php';      
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,14 +16,11 @@ Assignment 1 cart page
     <link rel="stylesheet" type="text/css" href="style.css"> <!-- link to the stylesheet -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
     <title>Student Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload=initialisePage()>
+<body>
     <header>
         <!-- header bar that is going to appear at the top of the screen  -->
         <div class="logo"><img src="images/logo.svg" alt="UCLan logo"></div>
@@ -68,49 +66,59 @@ Assignment 1 cart page
     <!-- Content captured from Desing Requirements video -->
     <main>
         <section id="cart">
-            <h2>Shopping Cart</h2>
+            <h1>Shopping Cart</h1>
             <?php
-                if (isset($_SESSION["loggedIn"]) && isset($_SESSION["name"]))
+                if (isset($_SESSION["loggedIn"]) && isset($_SESSION["userName"]))
                 {
                     if ($_SESSION["loggedIn"])
                     {
-                        echo "<h2>Welcome back " .$_SESSION["name"]."</h2>";
+                        echo "<h2>Welcome back " .$_SESSION["userName"]."</h2>";
                     }
                 }
             ?>
-            <p>The items you've added to your shopping cart are:</p>
-            <table>
-                <tr>
-                    <th style="width:10%">Item</th>
-                    <th style="width:15%"></th>
-                    <th style="width:33%">Product</th>
-                    <th style="width:15%">Price</th>
-                    <th style="width:5%"></th>
-                </tr>
+            <?php
+                $cookie_name = "cartProductIds";
+                if (empty($_COOKIE[$cookie_name])) {
+                    echo "<h3>You're cart is currently empty</h3>";
+                    echo "<p>Please go to the <a href='products.php'>products</a> page to add items to your cart.</p>";
+                } else {
+                    //Create template for table
+                    echo "<p>The items you've added to your shopping cart are:</p>";
+                    echo "<table><tr>";
+                    echo "<th style='width:10%'>Item</th>";
+                    echo "<th style='width:15%'></th>";
+                    echo "<th style='width:33%'>Product</th>";
+                    echo "<th style='width:15%'>Price</th>";
+                    echo "<th style='width:5%'</th></tr>";
 
-                <!-- <?php
-                    /*if(isset($_COOKIE["cartProductIds"])) {
-                        $productIds = $_COOKIE["cartProductIds"];
-                        foreach ($productIds as $id) {
-                            $connection = mysqli_connect("localhost", "root", "", "union-shop");
-                            $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$id);
-                            while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
-                            {
-                                echo "<tr>";
-                                echo "<th>0</th>";
-                                echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
-                                echo "<th>".$product["product_title"]."</th>";
-                                echo "<th>".$product["product_price"]."</th>";
-                                echo "<th><button type='button' class='removeButton' onclick=''>Remove</button></th>";
-                            }
+                    //add all the extra rows
+                    $productIds = unserialize($_COOKIE[$cookie_name]);
+
+                    for ($i = 0; $i<count($productIds); $i++) {
+                        $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                        $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productIds[$i]);
+                        while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
+                        {
+                            echo "<tr>";
+                            echo "<th>".$i."</th>";
+                            echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
+                            echo "<th>".$product["product_title"]."</th>";
+                            echo "<th>".$product["product_price"]."</th>";
+                            echo "<th><form class='removeButton' action='removeProductFromCartScript.php?idx=".$i."' method='post'><input type='submit' value='Remove'></form></th>";
+                            echo "</tr>";
                         }
-                    }*/
-                ?> -->
-            </table>
+                    }
+
+                    echo "<tr><th></th><th></th><th></th><th></th>";
+                    echo "<th><form action='emptyCartScript.php' method='post'>";
+                    echo "<input type='submit' value='Empty Cart'>";
+                    echo "</form></th>";
+                    echo "</tr></table>";
+                }
+            ?>                
         </section>
-        <aside id="emptyBasketDiv">
-            <button type='button' onclick='emptyBasket()'>Empty Basket</button>
-        </aside>
+        <hr>
+        <section>
         <?php
             if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) {
                 echo "<form id='login' action='loginScript.php' method='post'>";
@@ -130,9 +138,15 @@ Assignment 1 cart page
                 echo "<input type='password' name='password' required></p>";
                 echo "<input type='submit' value='Log Me In'>";
                 echo "</form>";
+            } else {
+                if (!empty($_COOKIE[$cookie_name])) {
+                    echo "<form id='checkout' action='createOrderScript.php' method='post'>";
+                    echo "<input type='submit' value='Checkout'>";
+                    echo "</form>";
+                }
             }
         ?>
-        
+        </seciton>
     </main>
     
 
@@ -154,6 +168,16 @@ Assignment 1 cart page
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
         </section>
     </footer>
+    <?php
+        if (!isset($_SESSION["alertedOfCookies"])) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+        else if (!$_SESSION["alertedOfCookies"]) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+    ?>
     <script>
          function initialisePage() {
             //local storage with an array called items with product IDs

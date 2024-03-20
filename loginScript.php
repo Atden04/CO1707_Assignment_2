@@ -15,7 +15,8 @@
         $dbpassword = $record["user_pass"];
         if ($myPassword == $dbpassword){
             $_SESSION["loggedIn"] = true;
-            $_SESSION["name"] = $record["user_full_name"];
+            $_SESSION["userName"] = $record["user_full_name"];
+            $_SESSION["userID"] = $record["user_id"];
             header ('Location: cart.php?passwordMatch=true');
         }else{
             header ('Location: cart.php?passwordMatch=false'); //fail state: password does not match,
