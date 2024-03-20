@@ -90,11 +90,13 @@ Assignment 1 products page
         <?php
                 $productName = $productType = "";
 
+                
+
                 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
                     $productName = processInput($_POST["productName"]);
         
                     $productType = processInput($_POST["productType"]);
-                }
+                } 
 
                 $queryString = "SELECT * FROM tbl_products";    //query by default
                     
@@ -169,6 +171,16 @@ Assignment 1 products page
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
         </section>
     </footer>
+    <?php
+        if (!isset($_SESSION["alertedOfCookies"])) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+        else if (!$_SESSION["alertedOfCookies"]) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+    ?>
     <script>
         function addItemToCart(itemId, itemTitle, itemDesc, itemImage, itemPrice) {
             let itemDetails = [itemId, itemTitle, itemDesc, itemImage, itemPrice];

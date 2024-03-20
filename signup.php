@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $connection = require_once 'conn.php';         
+    $connection = require_once 'conn.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,6 +168,16 @@ Assignment 1 index page
                 England<br>Company Number: 07623917<br>Registered Charity Number: 1142616</p>
         </section>
     </footer>
+    <?php
+        if (!isset($_SESSION["alertedOfCookies"])) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+        else if (!$_SESSION["alertedOfCookies"]) {
+            echo "<script>alert('Cookies are used on this Site.');</script>";
+            $_SESSION["alertedOfCookies"] = true;
+        }
+    ?>
     <script>
         /* for showing the mobile navigation when using the hamburger icon*/
         function revealMobileNav() {
