@@ -133,7 +133,7 @@ Assignment 1 products page
                     echo "<h2>".$row["product_title"]."</h2>";
                     echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
                     echo "<p class='price'>".$row["product_price"]."</p>";
-                    echo "<form id='productFilter' action='addProductToCart.php?pid=".$row["product_id"]."&returnPage=products.php' method='post'><input type='submit' value='Buy'></form>";
+                    echo "<form id='productFilter' action='addProductToCart.php?pid=".$row["product_id"]."&returnPage=products.php&pName=".$row["product_title"]."' method='post'><input type='submit' value='Buy'></form>";
                     echo "</section>";
                     echo "</li>";
                 }

@@ -3,6 +3,7 @@
 $cart = null;
 $pid = $_GET['pid'];
 $returnPage = $_GET['returnPage'];
+$pName = $_GET['pName'];
 $cookie_name = "cartProductIds";
 
 if (!empty($_COOKIE[$cookie_name])) {
@@ -13,12 +14,14 @@ if (!empty($_COOKIE[$cookie_name])) {
     array_push($cart, $pid);
 }
 
-echo $returnPage;
-
 setcookie($cookie_name, serialize($cart), time() + (86400 * 30), "/");  //sets cookie for a month, 86400 = 1 day
 if ($returnPage == "item.php") {
-    header ('Location: '.$returnPage.'?pid='.$pid);
+    echo "<script>alert('".$pName." has been added to cart.');";
+    echo "window.location.href = '".$returnPage."?pid=".$pid."';</script>";
+    //header ('Location: '.$returnPage.'?pid='.$pid);
 } else {
-    header ('Location: '.$returnPage.'#productId'.$pid);
+    echo "<script>alert('".$pName." has been added to cart.');";
+    echo "window.location.href = '".$returnPage."#productId".$pid."';</script>";
+    //header ('Location: '.$returnPage.'#productId'.$pid);
 }
 ?>
