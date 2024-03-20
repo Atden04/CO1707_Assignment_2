@@ -66,13 +66,13 @@ Assignment 1 cart page
     <!-- Content captured from Desing Requirements video -->
     <main>
         <section id="cart">
-            <h2>Shopping Cart</h2>
+            <h1>Shopping Cart</h1>
             <?php
-                if (isset($_SESSION["loggedIn"]) && isset($_SESSION["name"]))
+                if (isset($_SESSION["loggedIn"]) && isset($_SESSION["userName"]))
                 {
                     if ($_SESSION["loggedIn"])
                     {
-                        echo "<h2>Welcome back " .$_SESSION["name"]."</h2>";
+                        echo "<h2>Welcome back " .$_SESSION["userName"]."</h2>";
                     }
                 }
             ?>
@@ -80,60 +80,47 @@ Assignment 1 cart page
                 $cookie_name = "cartProductIds";
                 if (empty($_COOKIE[$cookie_name])) {
                     echo "<h3>You're cart is currently empty</h3>";
+                    echo "<p>Please go to the <a href='products.php'>products</a> page to add items to your cart.</p>";
                 } else {
+                    //Create template for table
                     echo "<p>The items you've added to your shopping cart are:</p>";
-                }
-            ?>
-            
-            <table>
-                <tr>
-                    <th style="width:10%">Item</th>
-                    <th style="width:15%"></th>
-                    <th style="width:33%">Product</th>
-                    <th style="width:15%">Price</th>
-                    <th style="width:5%"></th>
-                </tr>
+                    echo "<table><tr>";
+                    echo "<th style='width:10%'>Item</th>";
+                    echo "<th style='width:15%'></th>";
+                    echo "<th style='width:33%'>Product</th>";
+                    echo "<th style='width:15%'>Price</th>";
+                    echo "<th style='width:5%'</th></tr>";
 
-                <?php
+                    //add all the extra rows
+                    $productIds = unserialize($_COOKIE[$cookie_name]);
 
-                    $cookie_name = "cartProductIds";
-
-                    if (!empty($_COOKIE[$cookie_name])) {
-                        $productIds = unserialize($_COOKIE[$cookie_name]);
-
-                        for ($i = 0; $i<count($productIds); $i++) {
-                            $connection = mysqli_connect("localhost", "root", "", "union-shop");
-                            $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productIds[$i]);
-                            while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
-                            {
-                                echo "<tr>";
-                                echo "<th>".$i."</th>";
-                                echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
-                                echo "<th>".$product["product_title"]."</th>";
-                                echo "<th>".$product["product_price"]."</th>";
-                                echo "<th><form class='removeButton' action='removeProductFromCartScript.php?idx=".$i."' method='post'><input type='submit' value='Remove'></form></th>";
-                                echo "</tr>";
-                            }
+                    for ($i = 0; $i<count($productIds); $i++) {
+                        $connection = mysqli_connect("localhost", "root", "", "union-shop");
+                        $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productIds[$i]);
+                        while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
+                        {
+                            echo "<tr>";
+                            echo "<th>".$i."</th>";
+                            echo "<th><img class='cartImage' src='".$product["product_image"]."' alt=".$product["product_title"]."></th>";
+                            echo "<th>".$product["product_title"]."</th>";
+                            echo "<th>".$product["product_price"]."</th>";
+                            echo "<th><form class='removeButton' action='removeProductFromCartScript.php?idx=".$i."' method='post'><input type='submit' value='Remove'></form></th>";
+                            echo "</tr>";
                         }
-
-                        echo "<tr><th></th><th></th><th></th><th></th>";
-                        echo "<th><form action='emptyCartScript.php' method='post'>";
-                        echo "<input type='submit' value='Empty Cart'>";
-                        echo "</form></th>";
-                        echo "</tr>";
-
-                    } else {
-                        //display basked is empty
                     }
-                ?>
-                
-            </table>
-                
+
+                    echo "<tr><th></th><th></th><th></th><th></th>";
+                    echo "<th><form action='emptyCartScript.php' method='post'>";
+                    echo "<input type='submit' value='Empty Cart'>";
+                    echo "</form></th>";
+                    echo "</tr></table>";
+                }
+            ?>                
         </section>
+        <hr>
         <section>
         <?php
             if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) {
-                echo "<hr>";
                 echo "<form id='login' action='loginScript.php' method='post'>";
                 echo "<p>In order to check out you must log in</p>";
 
@@ -151,6 +138,12 @@ Assignment 1 cart page
                 echo "<input type='password' name='password' required></p>";
                 echo "<input type='submit' value='Log Me In'>";
                 echo "</form>";
+            } else {
+                if (!empty($_COOKIE[$cookie_name])) {
+                    echo "<form id='checkout' action='createOrderScript.php' method='post'>";
+                    echo "<input type='submit' value='Checkout'>";
+                    echo "</form>";
+                }
             }
         ?>
         </seciton>

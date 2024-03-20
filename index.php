@@ -76,11 +76,11 @@ Assignment 1 index page
     <!-- Content captured from Desing Requirements video -->
     <main>
         <?php
-            if (isset($_SESSION["loggedIn"]) && isset($_SESSION["name"]))
+            if (isset($_SESSION["loggedIn"]) && isset($_SESSION["userName"]))
             {
                 if ($_SESSION["loggedIn"])
                 {
-                    echo "<h2>Welcome back " .$_SESSION["name"]."</h2>";
+                    echo "<h2>Welcome back " .$_SESSION["userName"]."</h2>";
                 }
             }
         ?>

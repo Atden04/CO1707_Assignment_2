@@ -1,5 +1,4 @@
 <?php
-$cart = null;
 $cookie_name = "cartProductIds";
 
 $cart = unserialize($_COOKIE[$cookie_name]);
