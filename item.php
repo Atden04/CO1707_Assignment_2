@@ -65,24 +65,58 @@ Assignment 1 item page
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
-        <ul id="itemList">
+        <section id="itemDisplay">
+            <ul id="itemList">
+                <?php
+                    $productID = $_GET["pid"];
+                    $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
+                    while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
+                    {
+                        echo "<li class='item'>";
+                        echo "<section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section>";
+                        echo "<section class='itemInfo'>";
+                        echo "<h2>".$product["product_title"]."</h2>";
+                        echo "<p>".$product["product_desc"]."</p>";
+                        echo "<p class='price'>".$product["product_price"]."</p>";
+                        echo "<form id='productFilter' action='addProductToCartScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='POST'><input type='submit' value='Buy'></form>";
+                        echo "</section>";
+                        echo "</li>";
+                    }
+                ?>           
+            </ul>
+        </section>
+        <section id="itemReviews">
+        </section>
+        <section id="addReview">
+            <form id='addItemReivew' action='addReviewScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='POST'>
+                <p><label>Title</label>
+                <input type="text" name="title" placeholder="Title" required></p>
+                <p><label>Comment</label>
+                <input type="text" name="comment" placeholder="Enter Comment here" required></p>
+                <select id="reviewRating" name="rating" required>
+                    <option disabled selected value>Select a Rating</option>
+
+                    <option value="excellent">Excellent</option>
+                    <option value="good">Good</option>
+                    <option value="neutral">Neutral</option>
+                    <option value="bad">Bad</option>
+                    <option value="terrible">Terrible</option>
+                </select>
+                <input type='submit' value='Add Review'>
+            </form>
             <?php
-                $productID = $_GET["pid"];
-                $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
-                while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
+                /*if (isset($_SESSION["loggedIn"]) && isset($_SESSION["userName"]))
                 {
-                    echo "<li class='item'>";
-                    echo "<section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section>";
-                    echo "<section class='itemInfo'>";
-                    echo "<h2>".$product["product_title"]."</h2>";
-                    echo "<p>".$product["product_desc"]."</p>";
-                    echo "<p class='price'>".$product["product_price"]."</p>";
-                    echo "<form id='productFilter' action='addProductToCartScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='post'><input type='submit' value='Buy'></form>";
-                    echo "</section>";
-                    echo "</li>";
-                }
-            ?>           
-        </ul>
+                    if ($_SESSION["loggedIn"])
+                    {
+                        echo "<form id='addItemReivew' action='addReviewScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='POST'>";
+                        echo "<input type='text' name='reviewTitle'";
+                        echo "<input type='submit' value='Add Review'>";
+                        echo "</form>";
+                    }
+                }*/
+            ?>
+        </section>
     </main>
 
     <!-- Footer -->
