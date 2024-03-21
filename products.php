@@ -90,8 +90,6 @@ Assignment 1 products page
         <?php
                 $productName = $productType = "";
 
-                
-
                 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
                     $productName = processInput($_POST["productName"]);
         
