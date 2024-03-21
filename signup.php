@@ -96,17 +96,11 @@ Assignment 1 index page
                     $rowsExistingEmail = mysqli_query($connection, "SELECT * FROM `tbl_users` WHERE user_email LIKE '$email'");
                     $countRows = mysqli_num_rows($rowsExistingEmail);
                     if ($countRows == 0) {   //if no rows then account with provided email doesn't exist
-                        //get num rows for next id and add data to databse.
-                        $rowsInTable = mysqli_query($connection, "SELECT * FROM tbl_users;");
-                        $id = mysqli_num_rows($rowsInTable)+1;
-                        mysqli_query($connection, "INSERT INTO `tbl_users`(`user_id`, `user_full_name`, `user_address`, `user_email`, `user_pass`, `user_timestamp`) VALUES ('$id','$fullName','$address','$email','$password',NOW())");
+                        mysqli_query($connection, "INSERT INTO `tbl_users`(`user_full_name`, `user_address`, `user_email`, `user_pass`) VALUES ('$fullName','$address','$email','$password')");
                         echo "<script>alert('You\`re account has now been registered. You can now log in via the cart. ');</script>";
                     } else {
                         echo "<script>alert('An account already exists with the email provided. Please log in via the cart.');</script>";
-                    }
-                    
-
-                    
+                    } 
                 }
             }
 
@@ -126,6 +120,7 @@ Assignment 1 index page
 
         <p>Sign Up</p>
         <p>In order to purchase from the Student's Union shop, you need to create an account with all fields below required. If you have any difficulties with the from places contact the <a>webmaster</a></p>
+        <p>If you already have an account, head to the <a href="cart.php">cart to log in</a>.</p>
         <form id="signup" method='post' >
             <p><label>Full Name:</label>
             <input type="text" name="fullName" placeholder="Full Name" required></p>

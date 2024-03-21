@@ -33,7 +33,7 @@ Assignment 1 item page
                 <li><a href="cart.php">Cart</a></li>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logoutScript.php?returnPage=products.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=item.php&pid=".$_GET["pid"]."'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -55,7 +55,7 @@ Assignment 1 item page
                 <il><a href="cart.php">Cart</a></il>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logoutScript.php?returnPage=products.php?pid=".$row["product_id"]."&returnPage=item.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=item.php&pid=".$_GET["pid"]."'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -65,24 +65,98 @@ Assignment 1 item page
     </header>
     <!-- Content captured from Desing Requirements video -->
     <main>
-        <ul id="itemList">
+        <section id="itemDisplay">
+            <ul id="itemList">
+                <?php
+                    $productID = $_GET["pid"];
+                    $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
+                    while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
+                    {
+                        echo "<li class='item'>";
+                        echo "<section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section>";
+                        echo "<section class='itemInfo'>";
+                        echo "<h2>".$product["product_title"]."</h2>";
+                        echo "<p>".$product["product_desc"]."</p>";
+                        echo "<p class='price'>".$product["product_price"]."</p>";
+                        echo "<form id='productFilter' action='addProductToCartScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='POST'><input type='submit' value='Buy'></form>";
+                        echo "</section>";
+                        echo "</li>";
+                    }
+                ?>           
+            </ul>
+        </section>
+        <section id="itemReviews">
             <?php
                 $productID = $_GET["pid"];
-                $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productID);
-                while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
-                {
-                    echo "<li class='item'>";
-                    echo "<section class ='itemImage'><img src='".$product["product_image"]."' alt=".$product["product_title"]."></section>";
-                    echo "<section class='itemInfo'>";
-                    echo "<h2>".$product["product_title"]."</h2>";
-                    echo "<p>".$product["product_desc"]."</p>";
-                    echo "<p class='price'>".$product["product_price"]."</p>";
-                    echo "<form id='productFilter' action='addProductToCartScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='post'><input type='submit' value='Buy'></form>";
-                    echo "</section>";
-                    echo "</li>";
+                $reviews = mysqli_query($connection, "SELECT * FROM tbl_reviews WHERE product_id=".$productID);
+                $numReviews = mysqli_num_rows($reviews);
+                if ($numReviews > 0) {
+                    $totalRating = 0;
+                    while ($review = mysqli_fetch_array($reviews, MYSQLI_ASSOC)) {
+                        $totalRating += $review["review_rating"];
+                    }
+                    $averageRating = round($totalRating/$numReviews, 1);
+                    echo "<h1>Average Rating: ".$averageRating."</h1>";
+
+                    // need to requery after fetching the array
+                    $reviews = mysqli_query($connection, "SELECT * FROM tbl_reviews WHERE product_id=".$productID);
+                    while ($review = mysqli_fetch_array($reviews, MYSQLI_ASSOC)) {
+                        echo "<section id='reviewContainer'>";
+                        echo "<h4>".$review["review_title"]."</h4>";
+                        echo "<p>".$review["review_desc"]."</p>";
+                        $itemRating = "";
+                        switch ($review["review_rating"]) {
+                            case 1:
+                                $itemRating = "Terrible";
+                                break;
+                            case 2:
+                                $itemRating = "Bad";
+                                break;
+                            case 3:
+                                $itemRating = "Meh";
+                                break;
+                            case 4:
+                                $itemRating = "Good";
+                                break;
+                            case 5:
+                                $itemRating = "Excellent";
+                                break;
+                            default:
+                              // intentionally left blank
+                          }
+                        echo "<p id='itemRating'>".$itemRating."</p>";
+                        echo "</section>";
+                    }
                 }
-            ?>           
-        </ul>
+            ?>
+        </section>
+        <section id="addReview">
+            
+            <?php
+                if (isset($_SESSION["loggedIn"]) && isset($_SESSION["userName"]))
+                {
+                    if ($_SESSION["loggedIn"])
+                    {
+                        echo "<form id='addItemReivewForm' action='addReviewScript.php?pid=".$_GET['pid']."' method='POST'>";
+                        echo "<p><label>Title </label>";
+                        echo "<input type='text' name='title' placeholder='Title' required></p>";
+                        echo "<p><label>Comment </label>";
+                        echo "<input type='text' name='comment' placeholder='Enter Comment here' required></p>";
+                        echo "<select id='reviewRating' name='rating' required>";
+                        echo "<option disabled selected value>Select a Rating</option>";
+
+                        echo "<option value='5'>Excellent</option>";
+                        echo "<option value='4'>Good</option>";
+                        echo "<option value='3'>Meh</option>";
+                        echo "<option value='2'>Bad</option>";
+                        echo "<option value='1'>Terrible</option>";
+                        echo "</select>";
+                        echo "<input type='submit' value='Add Review'>";
+                        echo "</form>";
+                    }
+                }
+            ?>
+        </section>
     </main>
 
     <!-- Footer -->
