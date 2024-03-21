@@ -170,6 +170,54 @@ aside {
     border-radius: 2em;
 }
 
+/* Style for product filter */
+
+#productFilter {
+	padding: 4%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#productNameFilter {
+	border-radius: 3em;
+	padding: 0.8em;
+	border: 0.2em solid red;
+	background-color: #6778b1;
+	color: ghostwhite;
+	width: 30%;
+	font-size: 1.1em;
+	margin: 2%;
+}
+
+#productNameFilter::placeholder {
+	color: silver;
+}
+
+#productTypeFilter {
+	width: 25%;
+	padding: 16px 20px;
+	border: none;
+	border-radius: 3em;
+	border: 0.2em solid red;
+	background-color: #6778b1;
+	color: ghostwhite;
+	font-size: 1.1em;
+	margin: 2%;
+}
+
+#productTypeSubmit {
+	width: 15%;
+	padding: 0.8em;
+	border-radius: 3em;
+	border: 0.2em solid red;
+	background-color: #6778b1;
+	color: ghostwhite;
+	font-size: 1.1em;
+	margin: 2%;
+}
+
+/* end of style for product filter */
+
 #productList {
 	display: flex;
 	flex-wrap: wrap;

@@ -83,14 +83,12 @@ Assignment 1 products page
                 </script>
             </select>
             
-            <input type="submit" value="Search">
+            <input id="productTypeSubmit" type="submit" value="Search">
         </form>
         
         <ul id="productList">
         <?php
                 $productName = $productType = "";
-
-                
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
                     $productName = processInput($_POST["productName"]);
@@ -125,18 +123,24 @@ Assignment 1 products page
                 }
 
                 $rows = mysqli_query($connection, $queryString);
-                while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
-                {
-                    echo "<li class='product' id='productId".$row["product_id"]."'>";
-                    echo "<section class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></section>";
-                    echo "<section class='productInfo'>";
-                    echo "<h2>".$row["product_title"]."</h2>";
-                    echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
-                    echo "<p class='price'>".$row["product_price"]."</p>";
-                    echo "<form id='productFilter' action='addProductToCartScript.php?pid=".$row["product_id"]."&returnPage=products.php&pName=".$row["product_title"]."' method='post'><input type='submit' value='Buy'></form>";
-                    echo "</section>";
-                    echo "</li>";
+                $numRows = mysqli_num_rows($rows);
+                if ($numRows > 0) {
+                    while ($row = mysqli_fetch_array($rows, MYSQLI_ASSOC))
+                    {
+                        echo "<li class='product' id='productId".$row["product_id"]."'>";
+                        echo "<section class ='productImage'><img src='".$row["product_image"]."' alt=".$row["product_title"]."></section>";
+                        echo "<section class='productInfo'>";
+                        echo "<h2>".$row["product_title"]."</h2>";
+                        echo "<p>".$row["product_desc"]." <a href='item.php?pid=".$row["product_id"]."'>Read More.</a></p>";
+                        echo "<p class='price'>".$row["product_price"]."</p>";
+                        echo "<form id='productFilter' action='addProductToCartScript.php?pid=".$row["product_id"]."&returnPage=products.php&pName=".$row["product_title"]."' method='post'><input type='submit' value='Buy'></form>";
+                        echo "</section>";
+                        echo "</li>";
+                    }
+                } else {
+                    echo "<h3>No products meet the criteria you've filtered for. Please try again</h3>.";
                 }
+
 
                 function processInput($data) {
 
