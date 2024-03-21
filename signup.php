@@ -120,6 +120,7 @@ Assignment 1 index page
 
         <p>Sign Up</p>
         <p>In order to purchase from the Student's Union shop, you need to create an account with all fields below required. If you have any difficulties with the from places contact the <a>webmaster</a></p>
+        <p>If you already have an account, head to the <a href="cart.php">cart to log in</a>.</p>
         <form id="signup" method='post' >
             <p><label>Full Name:</label>
             <input type="text" name="fullName" placeholder="Full Name" required></p>

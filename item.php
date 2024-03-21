@@ -97,6 +97,36 @@ Assignment 1 item page
                     }
                     $averageRating = round($totalRating/$numReviews, 1);
                     echo "<h1>Average Rating: ".$averageRating."</h1>";
+
+                    // need to requery after fetching the array
+                    $reviews = mysqli_query($connection, "SELECT * FROM tbl_reviews WHERE product_id=".$productID);
+                    while ($review = mysqli_fetch_array($reviews, MYSQLI_ASSOC)) {
+                        echo "<section id='reviewContainer'>";
+                        echo "<h4>".$review["review_title"]."</h4>";
+                        echo "<p>".$review["review_desc"]."</p>";
+                        $itemRating = "";
+                        switch ($review["review_rating"]) {
+                            case 1:
+                                $itemRating = "Terrible";
+                                break;
+                            case 2:
+                                $itemRating = "Bad";
+                                break;
+                            case 3:
+                                $itemRating = "Meh";
+                                break;
+                            case 4:
+                                $itemRating = "Good";
+                                break;
+                            case 5:
+                                $itemRating = "Excellent";
+                                break;
+                            default:
+                              // intentionally left blank
+                          }
+                        echo "<p id='itemRating'>".$itemRating."</p>";
+                        echo "</section>";
+                    }
                 }
             ?>
         </section>
@@ -107,7 +137,7 @@ Assignment 1 item page
                 {
                     if ($_SESSION["loggedIn"])
                     {
-                        echo "<form id='addItemReivew' action='addReviewScript.php?pid=".$_GET['pid']."' method='POST'>";
+                        echo "<form id='addItemReivewForm' action='addReviewScript.php?pid=".$_GET['pid']."' method='POST'>";
                         echo "<p><label>Title </label>";
                         echo "<input type='text' name='title' placeholder='Title' required></p>";
                         echo "<p><label>Comment </label>";
@@ -117,7 +147,7 @@ Assignment 1 item page
 
                         echo "<option value='5'>Excellent</option>";
                         echo "<option value='4'>Good</option>";
-                        echo "<option value='3'>Neutral</option>";
+                        echo "<option value='3'>Meh</option>";
                         echo "<option value='2'>Bad</option>";
                         echo "<option value='1'>Terrible</option>";
                         echo "</select>";
