@@ -183,6 +183,7 @@ aside {
 	padding: 0.8em;
 	border: 0.2em solid red;
 	background-color: #6778b1;
+	color: ghostwhite;
 	width: 325px;
 	font-size: 1.1em;
 	margin: 2%;
@@ -199,6 +200,7 @@ aside {
 	border-radius: 3em;
 	border: 0.2em solid red;
 	background-color: #6778b1;
+	color: ghostwhite;
 	font-size: 1.1em;
 	margin: 2%;
 }
@@ -208,6 +210,7 @@ aside {
 	border-radius: 3em;
 	border: 0.2em solid red;
 	background-color: #6778b1;
+	color: ghostwhite;
 	font-size: 1.1em;
 	margin: 2%;
 }
