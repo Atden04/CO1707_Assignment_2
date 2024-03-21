@@ -88,7 +88,7 @@ Assignment 1 item page
         <section id="itemReviews">
         </section>
         <section id="addReview">
-            <form id='addItemReivew' action='addReviewScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='POST'>
+            <form id='addItemReivew' action='addReviewScript.php?pid=<?php echo $_GET["pid"]; ?>' method='POST'>
                 <p><label>Title</label>
                 <input type="text" name="title" placeholder="Title" required></p>
                 <p><label>Comment</label>
@@ -96,11 +96,11 @@ Assignment 1 item page
                 <select id="reviewRating" name="rating" required>
                     <option disabled selected value>Select a Rating</option>
 
-                    <option value="excellent">Excellent</option>
-                    <option value="good">Good</option>
-                    <option value="neutral">Neutral</option>
-                    <option value="bad">Bad</option>
-                    <option value="terrible">Terrible</option>
+                    <option value="5">Excellent</option>
+                    <option value="4">Good</option>
+                    <option value="3">Neutral</option>
+                    <option value="2">Bad</option>
+                    <option value="1">Terrible</option>
                 </select>
                 <input type='submit' value='Add Review'>
             </form>
