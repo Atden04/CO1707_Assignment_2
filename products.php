@@ -83,7 +83,7 @@ Assignment 1 products page
                 </script>
             </select>
             
-            <input type="submit" value="Search">
+            <input id="productTypeSubmit" type="submit" value="Search">
         </form>
         
         <ul id="productList">
