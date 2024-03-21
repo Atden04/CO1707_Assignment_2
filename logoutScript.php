@@ -8,6 +8,7 @@
     {
         $pid = $_GET['pid'];
         header ('Location: '.$returnPage.'?pid='.$pid);
+    } else {
+        header ('Location: '.$returnPage);
     }
-    header ('Location: '.$returnPage);
 ?>

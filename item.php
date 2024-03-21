@@ -33,7 +33,7 @@ Assignment 1 item page
                 <li><a href="cart.php">Cart</a></li>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logoutScript.php?returnPage=products.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=item.php&pid=".$_GET["pid"]."'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -55,7 +55,7 @@ Assignment 1 item page
                 <il><a href="cart.php">Cart</a></il>
                 <?php
                     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
-                        echo "<li><a href='logoutScript.php?returnPage=products.php?pid=".$row["product_id"]."&returnPage=item.php'>Log Out</a></li>";
+                        echo "<li><a href='logoutScript.php?returnPage=item.php&pid=".$_GET["pid"]."'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='signup.php'>Sign Up</a></li>";
                     }
@@ -86,35 +86,45 @@ Assignment 1 item page
             </ul>
         </section>
         <section id="itemReviews">
+            <?php
+                $productID = $_GET["pid"];
+                $reviews = mysqli_query($connection, "SELECT * FROM tbl_reviews WHERE product_id=".$productID);
+                $numReviews = mysqli_num_rows($reviews);
+                if ($numReviews > 0) {
+                    $totalRating = 0;
+                    while ($review = mysqli_fetch_array($reviews, MYSQLI_ASSOC)) {
+                        $totalRating += $review["review_rating"];
+                    }
+                    $averageRating = round($totalRating/$numReviews, 1);
+                    echo "<h1>Average Rating: ".$averageRating."</h1>";
+                }
+            ?>
         </section>
         <section id="addReview">
-            <form id='addItemReivew' action='addReviewScript.php?pid=<?php echo $_GET["pid"]; ?>' method='POST'>
-                <p><label>Title</label>
-                <input type="text" name="title" placeholder="Title" required></p>
-                <p><label>Comment</label>
-                <input type="text" name="comment" placeholder="Enter Comment here" required></p>
-                <select id="reviewRating" name="rating" required>
-                    <option disabled selected value>Select a Rating</option>
-
-                    <option value="5">Excellent</option>
-                    <option value="4">Good</option>
-                    <option value="3">Neutral</option>
-                    <option value="2">Bad</option>
-                    <option value="1">Terrible</option>
-                </select>
-                <input type='submit' value='Add Review'>
-            </form>
+            
             <?php
-                /*if (isset($_SESSION["loggedIn"]) && isset($_SESSION["userName"]))
+                if (isset($_SESSION["loggedIn"]) && isset($_SESSION["userName"]))
                 {
                     if ($_SESSION["loggedIn"])
                     {
-                        echo "<form id='addItemReivew' action='addReviewScript.php?pid=".$product["product_id"]."&returnPage=item.php&pName=".$product["product_title"]."' method='POST'>";
-                        echo "<input type='text' name='reviewTitle'";
+                        echo "<form id='addItemReivew' action='addReviewScript.php?pid=".$_GET['pid']."' method='POST'>";
+                        echo "<p><label>Title </label>";
+                        echo "<input type='text' name='title' placeholder='Title' required></p>";
+                        echo "<p><label>Comment </label>";
+                        echo "<input type='text' name='comment' placeholder='Enter Comment here' required></p>";
+                        echo "<select id='reviewRating' name='rating' required>";
+                        echo "<option disabled selected value>Select a Rating</option>";
+
+                        echo "<option value='5'>Excellent</option>";
+                        echo "<option value='4'>Good</option>";
+                        echo "<option value='3'>Neutral</option>";
+                        echo "<option value='2'>Bad</option>";
+                        echo "<option value='1'>Terrible</option>";
+                        echo "</select>";
                         echo "<input type='submit' value='Add Review'>";
                         echo "</form>";
                     }
-                }*/
+                }
             ?>
         </section>
     </main>
