@@ -52,6 +52,31 @@ input:hover[type=submit] {
 	color: silver;
 }
 
+select {
+	padding: 16px 20px;
+	border: none;
+	border-radius: 3em;
+	border: 0.2em solid red;
+	background-color: #6778b1;
+	color: ghostwhite;
+	font-size: 1.1em;
+}
+
+textarea {
+	height: 150px;
+	width: 300px;
+	border: 0.2em solid red;
+	border-radius: 3em;
+	padding: 0.8em;
+	background-color: #6778b1;
+	color: ghostwhite;
+	font-size: 1.5em;
+}
+
+textarea::placeholder {
+	color: silver;
+}
+
 /*for desktop navigation*/
 #desktopNav{
 	display:block;
@@ -200,13 +225,6 @@ aside {
 
 #productTypeFilter {
 	width: 25%;
-	padding: 16px 20px;
-	border: none;
-	border-radius: 3em;
-	border: 0.2em solid red;
-	background-color: #6778b1;
-	color: ghostwhite;
-	font-size: 1.1em;
 	margin: 2%;
 }
 
@@ -246,14 +264,13 @@ aside {
 /*Style for item.html*/
 #itemList {
 	list-style-type: none;
-	
 }
 
 .item {
 	margin:auto; 
 	display:block;
 	border: 0.2em solid black;
-	width: 50%;
+	width: 60%;
 }
 
 .itemImage img {
@@ -270,6 +287,58 @@ aside {
 	margin:auto; 
 	display:block;
 }
+
+#itemReviews {
+	margin:auto; 
+	display:block;
+	border: 0.2em solid black;
+	border-radius: 1em;
+	width: 70%;
+	padding: 0.9em;
+	background-color: #e9e9e9;
+}
+
+#reviewContainer {
+	border: 0.3em solid yellow;
+	border-radius: 1.5em;
+	margin: 2%;
+	padding: 1em;
+	background-color: #6778b1;
+}
+
+#itemRating {
+	border: 0.2em;
+	border-radius: 0.1em;
+	text-align: center;
+	width: 75px;
+}
+
+.terribleRating {
+	background-color: #F40000;
+}
+
+.badRating {
+	background-color: #F4B702;
+}
+
+.mehRating {
+	background-color: #EFEF06;
+}
+
+.goodRating {
+	background-color: #CCF302;
+}
+
+.excellentRating {
+	background-color: #5DF400;
+}
+
+#addReview {
+	text-align: center;
+	margin: auto;
+	padding: 2em;
+}
+
 
 /* For cart.html */
 td {
@@ -302,21 +371,6 @@ td {
 	padding: 0.9em;
 	background-color: #e9e9e9;
 	text-align: center;
-}
-
-#signup textarea {
-	height: 150px;
-	width: 300px;
-	border: 0.2em solid red;
-	border-radius: 3em;
-	padding: 0.8em;
-	background-color: #6778b1;
-	color: ghostwhite;
-	font-size: 1.5em;
-}
-
-#signup textarea::placeholder {
-	color: silver;
 }
 
 .verifiedInput {
