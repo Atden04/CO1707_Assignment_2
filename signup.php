@@ -118,30 +118,30 @@ Assignment 1 index page
 
         ?>
 
-        <p>Sign Up</p>
+        <h2>Sign Up</h2>
         <p>In order to purchase from the Student's Union shop, you need to create an account with all fields below required. If you have any difficulties with the from places contact the <a>webmaster</a></p>
         <p>If you already have an account, head to the <a href="cart.php">cart to log in</a>.</p>
         <form id="signup" method='post' >
-            <p><label>Full Name:</label>
-            <input type="text" name="fullName" placeholder="Full Name" required></p>
+            <p><label>Full Name</label></p>
+            <input type="text" name="fullName" placeholder="Full Name" required>
             <!-- https://www.w3schools.com/tags/att_input_pattern.asp -->
-            <p><label>Email Address:</label>
-            <input type="email" name="email" placeholder="Email" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" ></p>
+            <p><label>Email Address:</label></p>
+            <input type="email" name="email" placeholder="Email" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" >
 
             <p><label>Password:
             <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
-            </label>
+            </label></p>
             <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->
-            <input id="passwordInput" type="password" name="password" placeholder="Password" required onfocus="createPasswordRequirementsPrompt()" oninput="updatePasswordRequirementsPrompt()" onblur="hidePasswordRequirementsPrompt()"></p>
+            <input id="passwordInput" type="password" name="password" placeholder="Password" required onfocus="createPasswordRequirementsPrompt()" oninput="updatePasswordRequirementsPrompt()" onblur="hidePasswordRequirementsPrompt()">
             <section id="passwordRequirementPrompt">
             </section>
-            <p><label>Confirm Password:</label>
-            <input id="confirmPasswordInput" type="password" name="confirmPassword" placeholder="Repeat Password" required onfocus="createConfirmPasswordPrompt()" oninput="updateConfirmPasswordPrompt()" onblur="hideConfirmPasswordPrompt()"></p>
+            <p><label>Confirm Password:</label></p>
+            <input id="confirmPasswordInput" type="password" name="confirmPassword" placeholder="Repeat Password" required onfocus="createConfirmPasswordPrompt()" oninput="updateConfirmPasswordPrompt()" onblur="hideConfirmPasswordPrompt()">
             <section id="passwordConfirmPrompt">
             </section>
-            <p><label>Address:</label>
-            <input type="text" name="address" placeholder="Address" required></p>
-            <input type="submit" value="Submit">
+            <p><label>Address:</label></p>
+            <p><textarea type="text" name="address" placeholder="Address" required></textarea></p>
+            <p><input type="submit" value="Submit"></p>
         </form>
     </main>
 
@@ -201,33 +201,48 @@ Assignment 1 index page
             if (password.length >= 8)
             {
                 passwordLengthPrompt.innerHTML = "The password is long enough";
-            }
-            else {
+                passwordLengthPrompt.classList.remove("notVerifiedInput"); 
+                passwordLengthPrompt.classList.add("verifiedInput"); 
+            } else {
                 passwordLengthPrompt.innerHTML = "Password should be a minimum of 8 characters long";
+                passwordLengthPrompt.classList.remove("verifiedInput"); 
+                passwordLengthPrompt.classList.add("notVerifiedInput"); 
             }
 
             let passwordUppercasePrompt = document.getElementById("passwordUppercasePrompt");
             let capitalsInPassword = password.match(/[A-Z]/g)
             if (capitalsInPassword != null)  {
                 passwordUppercasePrompt.innerHTML = "Password contains a capital letter";
+                passwordUppercasePrompt.classList.remove("notVerifiedInput"); 
+                passwordUppercasePrompt.classList.add("verifiedInput"); 
             }  else {
                 passwordUppercasePrompt.innerHTML = "Password needs to contain a capital letter";
+                passwordUppercasePrompt.classList.remove("verifiedInput"); 
+                passwordUppercasePrompt.classList.add("notVerifiedInput"); 
             }
 
             let passwordLowercasePrompt = document.getElementById("passwordLowercasePrompt");
             let lowercaseInPassword = password.match(/[a-z]/g)
             if (lowercaseInPassword != null)  {
                 passwordLowercasePrompt.innerHTML = "Password contains a lowercase letter";
+                passwordLowercasePrompt.classList.remove("notVerifiedInput"); 
+                passwordLowercasePrompt.classList.add("verifiedInput"); 
             }  else {
                 passwordLowercasePrompt.innerHTML = "Password needs to contain a lowercase letter";
+                passwordLowercasePrompt.classList.remove("verifiedInput"); 
+                passwordLowercasePrompt.classList.add("notVerifiedInput");
             }
 
             let passwordNumberPrompt = document.getElementById("passwordNumberPrompt");
             let numbersInPassword = password.match(/[0-9]/g)
             if (numbersInPassword != null)  {
                 passwordNumberPrompt.innerHTML = "Password contains a number letter";
+                passwordNumberPrompt.classList.remove("notVerifiedInput"); 
+                passwordNumberPrompt.classList.add("verifiedInput"); 
             }  else {
                 passwordNumberPrompt.innerHTML = "Password needs to contain a number letter";
+                passwordNumberPrompt.classList.remove("verifiedInput"); 
+                passwordNumberPrompt.classList.add("notVerifiedInput"); 
             }
         }
 
@@ -250,8 +265,12 @@ Assignment 1 index page
             let confirmPrompt = document.getElementById("confirmPrompt");
             if (password == confirmedPassword) {
                 confirmPrompt.innerHTML = "The Passwords Match";
+                confirmPrompt.classList.remove("notVerifiedInput"); 
+                confirmPrompt.classList.add("verifiedInput");
             } else {
                 confirmPrompt.innerHTML = "The Passwords do not Match";
+                confirmPrompt.classList.remove("verifiedInput"); 
+                confirmPrompt.classList.add("notVerifiedInput"); 
             }
         } 
         

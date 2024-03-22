@@ -34,6 +34,24 @@ nav {
 	position: relative;
 }
 
+input {
+	border: 0.2em solid red;
+	border-radius: 3em;
+	padding: 0.8em;
+	background-color: #6778b1;
+	color: ghostwhite;
+	font-size: 1.1em;
+}
+
+input::placeholder {
+	color: silver;
+}
+
+input:hover[type=submit] {
+	background-color: #485a94;
+	color: silver;
+}
+
 /*for desktop navigation*/
 #desktopNav{
 	display:block;
@@ -101,9 +119,6 @@ nav {
 	background-color: #9c121b;
 	color: black;
 }
-
-
-
 
 /*Style for the main of website*/
 main {
@@ -180,17 +195,7 @@ aside {
 
 #productNameFilter {
 	border-radius: 3em;
-	padding: 0.8em;
-	border: 0.2em solid red;
-	background-color: #6778b1;
-	color: ghostwhite;
-	width: 30%;
-	font-size: 1.1em;
 	margin: 2%;
-}
-
-#productNameFilter::placeholder {
-	color: silver;
 }
 
 #productTypeFilter {
@@ -206,13 +211,6 @@ aside {
 }
 
 #productTypeSubmit {
-	width: 15%;
-	padding: 0.8em;
-	border-radius: 3em;
-	border: 0.2em solid red;
-	background-color: #6778b1;
-	color: ghostwhite;
-	font-size: 1.1em;
 	margin: 2%;
 }
 
@@ -289,6 +287,45 @@ td {
 	position: fixed;
 	top: 50%;
 	right: 0.5em;
+}
+
+#checkout {
+	text-align: center;
+}
+
+/* Signup.html */
+#signup {
+	margin:auto; 
+	display:block;
+	border: 0.2em solid black;
+	width: 75%;
+	padding: 0.9em;
+	background-color: #e9e9e9;
+	text-align: center;
+}
+
+#signup textarea {
+	height: 150px;
+	width: 300px;
+	border: 0.2em solid red;
+	border-radius: 3em;
+	padding: 0.8em;
+	background-color: #6778b1;
+	color: ghostwhite;
+	font-size: 1.5em;
+}
+
+#signup textarea::placeholder {
+	color: silver;
+}
+
+.verifiedInput {
+	color: Green;
+}
+
+.notVerifiedInput {
+	color:red;
+	font-weight: bold;
 }
 
 /* Footer */
