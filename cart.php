@@ -95,7 +95,6 @@ Assignment 1 cart page
                     $productIds = unserialize($_COOKIE[$cookie_name]);
 
                     for ($i = 0; $i<count($productIds); $i++) {
-                        $connection = mysqli_connect("localhost", "root", "", "union-shop");
                         $products = mysqli_query($connection, "SELECT * FROM tbl_products WHERE product_id=".$productIds[$i]);
                         while ($product = mysqli_fetch_array($products, MYSQLI_ASSOC))
                         {
