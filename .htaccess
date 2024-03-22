@@ -1,2 +1,2 @@
 RewriteEngine on
-ErrorDocument 404   http://yoursitename.com/errorPage.php
+ErrorDocument 404   https://vesta.uclan.ac.uk/~atdenton/student-shop/errorPage.php
