@@ -1,1 +1,2 @@
-ErrorDocument 404 /errorPage.php
+RewriteEngine on
+ErrorDocument 404   http://yoursitename.com/errorPage.php
