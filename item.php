@@ -143,6 +143,7 @@ Assignment 1 item page
                     {
                         if ($_SESSION["loggedIn"])
                         {
+                            echo "<h3>Add a Review</h3>";
                             echo "<form id='addItemReivewForm' action='addReviewScript.php?pid=".$_GET['pid']."' method='POST'>";
                             echo "<p><label>Title </label></p>";
                             echo "<input type='text' name='title' placeholder='Title' required>";
